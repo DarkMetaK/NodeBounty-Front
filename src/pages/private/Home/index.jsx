@@ -127,6 +127,22 @@ export function PrivateHome() {
       }
     }
   }
+
+  async function handleResgatar() {
+      try {
+        await api.post('/transacoes/resgatar')
+        loadAccountData()
+      } catch (error) {
+        const isAppError = error instanceof AppError
+        const title = isAppError ? error.message : 'Erro no servidor.'
+        const description = isAppError
+          ? 'Verifique os dados e tente novamente.'
+          : 'Tente novamente mais tarde.'
+
+        showToast(title, description, true)
+      }
+  }
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -148,7 +164,15 @@ export function PrivateHome() {
               style: 'currency',
               currency: 'BRL',
             })}
+          </strong><br />
+          <strong>
+            Valor Cashback disponível:{' '}
+            {dadosConta.cashbackConta.toLocaleString('default', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
           </strong>
+          <Button titulo="Resgatar cashback" onClick={handleResgatar} />
         </div>
       </main>
 
