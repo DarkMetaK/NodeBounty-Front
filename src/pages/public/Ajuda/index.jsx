@@ -114,37 +114,10 @@ export function Ajuda() {
               <br>
               </br>
             </p>
-            <h2>Como usar o Node Bounty</h2>
+            <h2>Como usar o Node Bounty</h2>           
             <input className={styles.inputd} type="radio" name="accordion" id="cb6" />
             <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb6">Como criar sua conta</label>
-              <label className={styles.boxclose} for="acc-close"></label>
-              <div className={styles.boxcontent}>
-                Acessar o link abaixo preencher seus dados e entre com o e-mail e senha utilizados durante o cadastro
-                <Button
-                  titulo="Abra sua conta"
-                  tipo="secundario"
-                  onClick={() => navigate('/cadastro')}
-                />
-              </div>
-            </section>
-            <input className={styles.inputd} type="radio" name="accordion" id="cb7" />
-            <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb7">Como atualizo meus dados?</label>
-              <label className={styles.boxclose} for="acc-close"></label>
-              <div className={styles.boxcontent}>
-                Logar pelo link abaixo com o e-mail e senha utilizados durante o cadastro.<br></br>
-                Na pagina inicial de sua conta você poderá atualizar seus dados.
-                <Button
-                  titulo="Login"
-                  tipo="secundario"
-                  onClick={() => navigate('/login')}
-                />
-              </div>
-            </section>
-            <input className={styles.inputd} type="radio" name="accordion" id="cb8" />
-            <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb8">O que pode a conta do Node Bounty me possibilita?</label>
+              <label className={styles.boxtitle} for="cb6">O que pode a conta do Node Bounty me possibilita?</label>
               <label className={styles.boxclose} for="acc-close"></label>
               <div className={styles.boxcontent}>
                 <p>Após logar em sua conta na aba de navegação à esquerda é possível acessando as seguintes funções:
