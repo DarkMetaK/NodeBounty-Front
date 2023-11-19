@@ -8,7 +8,7 @@ import styles from './styles.module.css'
 export function Ajuda() {
   const navigate = useNavigate();
   return (
-    <main >
+    <main style={{ flex: 1 }}>
       <div>
         <div className={styles.container}>
           <nav className={styles.accordion + styles.arrows}>

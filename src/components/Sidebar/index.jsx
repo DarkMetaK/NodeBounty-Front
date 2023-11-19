@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import {
   UserCircle,
+  Gear,
   Money,
   Question,
   CreditCard,
@@ -28,6 +29,10 @@ export function Sidebar() {
         <NavLink to="/">
           <UserCircle size={32} />
           Conta
+        </NavLink>
+        <NavLink to="/configuracao">
+          <Gear size={32} />
+          Configurações
         </NavLink>
         <NavLink to="/transacoes">
           <Money size={32} />
@@ -64,6 +69,12 @@ export function Sidebar() {
                 <NavLink to="/">
                   <UserCircle size={32} />
                   Conta
+                </NavLink>
+              </DropdownMenu.Item>
+              <DropdownMenu.Item>
+                <NavLink to="/configuracao">
+                  <Gear size={32} />
+                  Configurações
                 </NavLink>
               </DropdownMenu.Item>
               <DropdownMenu.Item>

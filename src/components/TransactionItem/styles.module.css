@@ -1,0 +1,6 @@
+.transacaoContainer {
+  background-color: var(--blue-100);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1.25rem;
+}

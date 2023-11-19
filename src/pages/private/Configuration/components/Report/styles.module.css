@@ -1,0 +1,29 @@
+.graficos {
+  margin-bottom: 2.5rem;
+}
+
+.graficos > button, .history > button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--white);
+  font-size: 1.25rem;
+  color: var(--white);
+  padding: 1.25rem 0;
+}
+
+.graficoItem{
+  margin-top: 1.25rem;
+}
+
+.graficoItem strong {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--white);
+  display: block;
+  margin-bottom: 0.5rem;
+}

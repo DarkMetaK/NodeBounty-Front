@@ -33,27 +33,34 @@
   font-weight: 800;
 }
 
-
-/* UPDATE USER SECTION */
-.form {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
+.balance > p {
+  font-size: 1rem;
 }
-.form > div {
-  background-color: rgba(30, 30, 30, 0.2);
-  padding: 2.5rem;
-  border-radius: 5px;
+
+.partners {
+  padding-top: 2.5rem;
+  margin-top: 2.5rem;
+  border-top: 3px solid var(--blue-400);
+}
+.partners > p {
+  font-size: 1rem;
+  color: var(--blue-200);
+}
+.partners ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  padding: 0px;
+}
+.partners ul li {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--blue-600);
+  padding: 1.25rem;
+  border-radius: 8px;
 }
-@media (max-width: 800px) {
-  .form {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-  .form > div {
-    width: 100%;
-  }
+.partners ul li span {
+  text-align: center;
 }

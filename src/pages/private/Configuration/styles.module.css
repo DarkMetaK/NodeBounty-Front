@@ -1,0 +1,56 @@
+.containerConfigs {
+  max-width: 56.25rem;
+  width: 100%;
+  padding: 3.75rem 1.25rem;
+  margin: 0 auto;
+}
+
+.tabsRoot {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0,0,0,.1);
+}
+
+.tabsList {
+  flex-shrink: 0;
+  display: flex;
+  border-bottom: 1px solid var(--blue-100);
+}
+
+.tabsTrigger {
+  font-family: inherit;
+  background-color: #234149;
+  padding: 0 1.25rem;
+  height: 45px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--white);
+  user-select: none;
+  border: none
+}
+.tabsTrigger:first-child {
+  border-top-left-radius: 6px;
+}
+.tabsTrigger:last-child {
+  border-top-right-radius: 6px;
+}
+.tabsTrigger:hover {
+  color: var(--blue-300);
+}
+.tabsTrigger[data-state='active'] {
+  color: var(--blue-300);
+  box-shadow: inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor;
+}
+
+.tabsContent {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #234149;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  outline: none;
+}
