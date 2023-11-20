@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import dayjs from 'dayjs';
 import jsPDF from 'jspdf';
-import font from "@assets/Inter.ttf";
+import font from "@assets/inter.ttf";
 import fontBold from "@assets/Inter-Bold.ttf";
 import nodeimage from "@assets/logo-decorator.png";
 import pdfButton from "@assets/pdf-button.svg";
