@@ -102,7 +102,17 @@
     .rightButton{
       min-width: 8.0rem;
     }
+    .largeButton{
+      max-width: 5rem;
+    }
   }
+
+  @media(max-width: 913px){
+    .largeButton{
+      padding: 1rem 2rem;
+    }
+  }
+
  
 
   .largeButton{
@@ -117,6 +127,10 @@
   min-width: 12.5rem;
   transition: 0.3s;
   color: white;
+  }
+  .largeButton:hover{
+    border-color: var(--blue-300);
+    color:var(--blue-300) ;
   }
   .activeButton {
     border-top: 5px solid white;

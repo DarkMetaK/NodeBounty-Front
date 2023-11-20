@@ -14,7 +14,6 @@ export function Withdraw() {
   const [dadosConta, setDadosConta] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  console.log(dadosConta.saldoConta);
   const { showToast, ToastComponents } = useToast();
 
   const schema = z.object({
