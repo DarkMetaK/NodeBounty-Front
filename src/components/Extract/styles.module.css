@@ -1,0 +1,116 @@
+.mainContainer {
+    margin-left: 250px; /* Margem esquerda fixa para telas maiores */
+  }
+  
+  @media (max-width: 1200px) {
+    .mainContainer {
+      margin-left: 100px; /* Remover a margem esquerda em telas menores */
+    }
+  }
+  
+  @media (max-width: 1000px) {
+    .mainContainer {
+      margin-left: 50px; /* Remover a margem esquerda em telas menores */
+    }
+  }
+  
+  /* Use uma media query para ajustar a margem em telas menores */
+  @media (max-width: 900px) {
+    .mainContainer {
+      margin-left: 0; /* Remover a margem esquerda em telas menores */
+    }
+  }
+
+.extrato {
+    width: 80%;
+    max-width: 600px;
+    min-height: 600px;
+    background-color: #234149;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background-color: #234149;
+    padding: 10px 50px 0 50px; /* Margem: superior, direita, inferior, esquerda */    
+    width: 100%;
+    max-height: 600px; /* Defina a altura máxima desejada */
+    overflow: auto;
+    font-size: 1.2rem;
+  }
+
+  /* Estilo para a barra de rolagem vertical */
+.extrato::-webkit-scrollbar {
+  width: 12px; /* Largura da barra de rolagem */
+  border: 1px solid #ccc; /* Adiciona uma borda sólida à barra de rolagem */
+}
+
+/* Estilo para o "track" (a trilha da barra de rolagem) */
+.extrato::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Cor de fundo da trilha */
+}
+
+/* Estilo para o "thumb" (o botão de rolagem) */
+.extrato::-webkit-scrollbar-thumb {
+  background-color: #888; /* Cor do botão de rolagem */
+  border-radius: 6px; /* Borda arredondada do botão de rolagem */
+}
+
+/* Estilo para o "corner" (o canto entre a barra de rolagem vertical e horizontal) */
+.extrato::-webkit-scrollbar-corner {
+  background-color: #f1f1f1; /* Cor de fundo do canto */
+}
+
+/* Estilo para a barra de rolagem horizontal */
+.extrato::-webkit-scrollbar {
+  height: 12px; /* Altura da barra de rolagem */
+  border: 1px solid #ccc; /* Adiciona uma borda sólida à barra de rolagem */
+}
+
+/* Estilo para o "track" horizontal */
+.extrato::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Cor de fundo da trilha */
+}
+
+/* Estilo para o "thumb" horizontal */
+.extrato::-webkit-scrollbar-thumb {
+  background-color: #888; /* Cor do botão de rolagem */
+  border-radius: 6px; /* Borda arredondada do botão de rolagem */
+}
+
+/* Estilo para o "corner" horizontal */
+.extrato::-webkit-scrollbar-corner {
+  background-color: #f1f1f1; /* Cor de fundo do canto */
+}
+
+  .transacao {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+
+  .transacao:last-child {
+    border-bottom: none;
+  }
+
+  .data {
+    font-weight: bold;
+  }
+
+  .descricao {
+    margin-top: 5px;
+  }
+
+  .valor {
+    margin-top: 5px;
+    font-weight: bold;
+  }
+
+  .saldo {
+    color: #27ae60;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  .alert{
+    font-size: 1.6rem;
+    margin-top: 200px;
+  }

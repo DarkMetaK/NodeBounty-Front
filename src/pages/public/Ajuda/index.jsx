@@ -13,12 +13,12 @@ export function Ajuda() {
         <div className={styles.container}>
           <nav className={styles.accordion + styles.arrows}>
 
-            <label  ><h1>Perguntas Frequentes</h1></label>
+            <label><h1> <strong>Perguntas Frequentes</strong></h1></label>
 
-            <h2>Sobre o Node Bounty</h2>
+            <h2><strong>Sobre o Node Bounty</strong></h2>
             <input className={styles.inputd} type="radio" name="accordion" id="cb1" />
             <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb1">O Node Bounty</label>
+              <label className={styles.boxtitle} for="cb1"><strong>O Node Bounty</strong></label>
               <label className={styles.boxclose} for="acc-close"></label>
               <div className={styles.boxcontent}>
                 <p>
@@ -52,7 +52,7 @@ export function Ajuda() {
             </section>
             <input className={styles.inputd} type="radio" name="accordion" id="cb2" />
             <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb2">Sobre a conta do Node Bounty</label>
+              <label className={styles.boxtitle} for="cb2"><strong>Sobre a conta do Node Bounty</strong></label>
               <label className={styles.boxclose} for="acc-close"></label>
               <div className={styles.boxcontent}>
                 A conta do Node Bounty é a nossa conta digital e, assim como tudo no Node Bounty, foi desenhada para todos que desejam um serviço transparente, simples e sem tarifas abusivas. Ela foi feita para redefinir a maneira como você cuida do seu dinheiro. Para cumprir esse papel, a conta do Node Bounty:
@@ -72,11 +72,11 @@ export function Ajuda() {
               <br>
               </br>
             </p>
-            <h2>Sobre o cartão</h2>
+            <h2><strong>Sobre o cartão</strong></h2>
             <input className={styles.inputd} type="radio" name="accordion" id="cb3" />
             <section className={styles.box}>
               <label className={styles.boxtitle} for="cb3">
-                Não tem nenhuma tarifa?</label>
+                <strong>Não tem nenhuma tarifa?</strong></label>
               <label className={styles.boxclose} for="acc-close"></label>
               <div className={styles.boxcontent}>
                 <p>
@@ -90,10 +90,10 @@ export function Ajuda() {
               <br>
               </br>
             </p>
-            <h2>Segurança</h2>
+            <h2><strong>Segurança</strong></h2>
             <input className={styles.inputd} type="radio" name="accordion" id="cb4" />
             <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb4">A conta do Node Bounty é segura?</label>
+              <label className={styles.boxtitle} for="cb4"><strong>A conta do Node Bounty é segura?</strong></label>
               <label className={styles.boxclose} for="acc-close"></label>
               <div className={styles.boxcontent}>
                 Segurança e privacidade são elementos integrados a conta do Node Bounty.
@@ -104,7 +104,7 @@ export function Ajuda() {
             </section>
             <input className={styles.inputd} type="radio" name="accordion" id="cb5" />
             <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb5">Existe algum risco em colocar meu dinheiro na conta do Node Bounty?</label>
+              <label className={styles.boxtitle} for="cb5"><strong>Existe algum risco em colocar meu dinheiro na conta do Node Bounty?</strong></label>
               <label className={styles.boxclose} for="acc-close"></label>
               <div className={styles.boxcontent}>
                 Se o seu dinheiro fica separado do patrimônio do Node Bounty e só pode ser usado para aplicações em Títulos Públicos Federais. Por isso, nesse caso, o risco na conta é similar ao de uma aplicação no Tesouro Direto - renda fixa, pós-fixado, garantido pelo Governo - e dispensa outro tipo de garantia.
@@ -114,10 +114,12 @@ export function Ajuda() {
               <br>
               </br>
             </p>
-            <h2>Como usar o Node Bounty</h2>
-             <input className={styles.inputd} type="radio" name="accordion" id="cb6" />
+            <h2><strong>Como usar o Node Bounty</strong></h2>
+            <input className={styles.inputd} type="radio" name="accordion" id="cb6" />
             <section className={styles.box}>
-              <label className={styles.boxtitle} for="cb6">O que pode a conta do Node Bounty me possibilita?</label>
+              <label className={styles.boxtitle} for="cb6">
+                <strong>O que pode a conta do Node Bounty me possibilita?</strong>
+              </label>
               <label className={styles.boxclose} for="acc-close"></label>
               <div className={styles.boxcontent}>
                 <p>Após logar em sua conta na aba de navegação à esquerda é possível acessando as seguintes funções:

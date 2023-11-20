@@ -1,286 +1,292 @@
 .accordion {
-    margin: auto;
-    width: 400px;
-  }
+  margin: auto;
+  width: 400px;
+}
+
+.inputd {
+  display: none;
+}
+
+.box {
+  position: relative;
+ 
+  min-height: 64px;
+  transition: all .15s ease-in-out;
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+
+}
+
+header.box {
   
-  .inputd {
-    display: none;
-  }
+
+  z-index: 100;
+  cursor: initial;
+
+}
+
+header .boxtitle {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  font-weight: 500;
   
-  .box {
-    position: relative;
-   
-    min-height: 64px;
-    transition: all .15s ease-in-out;
-  }
-  
-  .box::before {
-    content: '';
-    position: absolute;
-    display: block;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-  
-  }
-  
-  header.box {
-    
-  
-    z-index: 100;
-    cursor: initial;
-  
-  }
-  
-  header .boxtitle {
-    margin: 0;
-    font-weight: normal;
-    font-size: 1.25rem;
-    line-height: 1.1;
-    font-weight: 500;
-    
-    cursor: initial;
-  }
-  
-  .boxtitle {
-    width: calc(100% - 40px);
-    min-height: 64px;
-    padding: 20px;
-    display: block;
-    cursor: pointer;
-    border: 1px solid var(--white);
-    border-radius: 4px;
-  }
-  
-  .boxcontent {
-    width: calc(100% - 40px);
-    padding: 30px 20px;
-    font-size: 11pt;
-    display: none;
-    border: 1px solid var(--white);
-    border-radius: 4px;
-  }
-  
-  .boxclose {
-    position: absolute;
-    min-height: 64px;
-    width: 100%;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    display: none;
-  }
-  
-  input:checked+.box {
-    height: auto;
-    margin: 16px 0;
-  }
-  
-  input:checked+.box .boxcontent,
-  input:checked+.box .boxclose {
-    display: inline-block;
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  .container {
-    max-width: 75rem;
-    width: 100%;
-    padding: 3.75rem 1.25rem;
-    margin: auto;
-  }
-  
+  cursor: initial;
+}
+
+.boxtitle {
+  width: calc(100% - 40px);
+  margin: 0;
+  font-weight: bolder;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  font-weight: 500;
+
+  min-height: 64px;
+  padding: 20px;
+  display: block;
+  cursor: pointer;
+  border: 1px solid var(--blue-300);
+  border-radius: 4px;
+}
+
+.boxcontent {
+  width: calc(100% - 40px);
+  padding: 30px 20px;
+  font-size: 11pt;
+  display: none;
+  border: 1px solid var(--white);
+  border-radius: 4px;
+}
+
+.boxclose {
+  position: absolute;
+  min-height: 64px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  display: none;
+}
+
+input:checked+.box {
+  height: auto;
+  margin: 16px 0;
+}
+
+input:checked+.box .boxcontent,
+input:checked+.box .boxclose {
+  display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container {
+  max-width: 75rem;
+  width: 100%;
+  padding: 3.75rem 1.25rem;
+  margin: auto;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  padding-bottom: 3.75rem;
+}
+
+.intro h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 3.75rem;
+}
+
+.intro div img {
+  max-width: 12.5rem;
+}
+
+@media (max-width: 800px) {
   .intro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: center;
-    padding-bottom: 3.75rem;
+    grid-template-columns: 1fr;
+    justify-items: center;
   }
-  
+
   .intro h1 {
-    font-size: 2.5rem;
-    line-height: 1.1;
-    font-weight: 800;
-    margin-bottom: 3.75rem;
+    text-align: center;
   }
-  
+
   .intro div img {
-    max-width: 12.5rem;
+    display: none;
   }
-  
-  @media (max-width: 800px) {
-    .intro {
-      grid-template-columns: 1fr;
-      justify-items: center;
-    }
-  
-    .intro h1 {
-      text-align: center;
-    }
-  
-    .intro div img {
-      display: none;
-    }
-  }
-  
-  /* Vantagens */
-  .benefits {
-    padding: 3.75rem 0;
-  }
-  
-  .benefits h2 {
-    font-size: 2.5rem;
-    line-height: 1.1;
-    font-weight: 800;
-    margin-bottom: 2.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    justify-content: space-between;
-  }
-  
-  .benefits h2::before {
-    content: "";
-    display: block;
-    flex: 1;
-    height: 2px;
-    background-color: var(--white);
-  }
-  
+}
+
+/* Vantagens */
+.benefits {
+  padding: 3.75rem 0;
+}
+
+.benefits h2 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  justify-content: space-between;
+}
+
+.benefits h2::before {
+  content: "";
+  display: block;
+  flex: 1;
+  height: 2px;
+  background-color: var(--white);
+}
+
+.benefitsList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  justify-items: center;
+}
+
+.benefitCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: auto;
+  width: 90%;
+  align-items: center;
+}
+
+.benefitCard>div {
+  border: 1px solid var(--white);
+  border-radius: 4px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+}
+
+.benefitCard>div>p {
+  text-align: justify;
+  line-height: 1.5;
+  color: var(--blue-200);
+}
+
+.benefitCard strong {
+  font-size: 1.25rem;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
   .benefitsList {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    justify-items: center;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
-  
+
   .benefitCard {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    height: auto;
-    width: 90%;
-    align-items: center;
+    max-width: 100%;
   }
-  
+
   .benefitCard>div {
-    border: 1px solid var(--white);
-    border-radius: 4px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    padding: 1.25rem;
-  }
-  
-  .benefitCard>div>p {
-    text-align: justify;
-    line-height: 1.5;
-    color: var(--blue-200);
-  }
-  
-  .benefitCard strong {
-    font-size: 1.25rem;
-    line-height: 1.1;
-    font-weight: 500;
-  }
-  
-  @media (max-width: 600px) {
-    .benefitsList {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-  
-    .benefitCard {
-      max-width: 100%;
-    }
-  
-    .benefitCard>div {
-      width: 100%;
-  
-    }
-  }
-  
-  /* Cartão */
-  .card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: center;
-    justify-items: center;
-    padding: 3.75rem 0;
-  }
-  
-  .card h2 {
-    font-size: 2.5rem;
-    line-height: 1.1;
-    font-weight: 800;
-    margin-bottom: 1.25rem;
-  }
-  
-  .card p {
-    font-size: 1.25rem;
-    line-height: 1.5;
-    color: var(--blue-200);
-  }
-  
-  .cardImage {
-    max-width: 27.5rem;
-  }
-  
-  @media (max-width: 800px) {
-    .card {
-      grid-template-columns: 1fr;
-      justify-items: center;
-    }
-  
-    .cardImage {
-      grid-row: 1;
-    }
-  
-    .card>div {
-      text-align: center;
-    }
-  
-    .card>div button {
-      margin: auto;
-    }
-  }
-  
-  /* Apoio */
-  .sponsor {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    align-items: center;
-    padding: 3.75rem 0;
-  }
-  
-  .sponsor>div {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    align-items: center;
     width: 100%;
+
+  }
+}
+
+/* Cartão */
+.card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  justify-items: center;
+  padding: 3.75rem 0;
+}
+
+.card h2 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+}
+
+.card p {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--blue-200);
+}
+
+.cardImage {
+  max-width: 27.5rem;
+}
+
+@media (max-width: 800px) {
+  .card {
+    grid-template-columns: 1fr;
     justify-items: center;
   }
-  
-  .sponsor>div>div {
-    max-width: 13.75rem;
+
+  .cardImage {
+    grid-row: 1;
   }
+
+  .card>div {
+    text-align: center;
+  }
+
+  .card>div button {
+    margin: auto;
+  }
+}
+
+/* Apoio */
+.sponsor {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 3.75rem 0;
+}
+
+.sponsor>div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+  width: 100%;
+  justify-items: center;
+}
+
+.sponsor>div>div {
+  max-width: 13.75rem;
+}
