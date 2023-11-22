@@ -53,7 +53,7 @@ header .boxtitle {
   font-weight: 500;
 
   min-height: 64px;
-  padding: 20px;
+  padding: 1.25rem;
   display: block;
   cursor: pointer;
   border: 1px solid var(--blue-300);
@@ -62,8 +62,8 @@ header .boxtitle {
 
 .boxcontent {
   width: calc(100% - 40px);
-  padding: 30px 20px;
-  font-size: 11pt;
+  padding: 1.875rem 1.25px;
+  font-size: 1rem;
   display: none;
   border: 1px solid var(--white);
   border-radius: 4px;
@@ -81,7 +81,7 @@ header .boxtitle {
 
 input:checked+.box {
   height: auto;
-  margin: 16px 0;
+  margin: 1rem 0;
 }
 
 input:checked+.box .boxcontent,

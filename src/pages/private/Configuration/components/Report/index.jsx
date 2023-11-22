@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react'
-import { CaretUp, CaretDown } from 'phosphor-react'
 
 import { api } from '@lib/api'
 
 import { MonthlyHistogram } from '@components/MonthlyHistogram'
 import { PieGraph } from '@components/PieGraph'
 import { Loading } from '@components/Loading'
-import { TransactionItem } from '@components/TransactionItem'
 import styles from './styles.module.css'
 
 export function Report() {
   const [dadosTransacao, setDadosTransacao] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [showCharts, setShowCharts] = useState(true)
-  const [showHistory, setShowHistory] = useState(true)
 
   useEffect(() => {
     async function buscarDadosTransacao() {
@@ -80,38 +76,18 @@ export function Report() {
   ) : (
     <section>
       <div className={styles.graficos}>
-        <button onClick={() => setShowCharts(!showCharts)}>
-          Gráficos {showCharts ? <CaretUp /> : <CaretDown />}
-        </button>
-        {showCharts && (
-          <>
-            <div className={styles.graficoItem}>
-              <strong>
-                Entradas - Total: {formatarValor(entradasTotal.y)}
-              </strong>
-              <MonthlyHistogram data={transacoesEntrada} />
-            </div>
-            <div className={styles.graficoItem}>
-              <strong>Saídas - Total: {formatarValor(saidasTotal.y)}</strong>
-              <MonthlyHistogram data={transacoesSaida} color="red" />
-            </div>
-            <div className={styles.graficoItem}>
-              <strong>Comparativo</strong>
-              <PieGraph data={[entradasTotal, saidasTotal]} />
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Listando as transações daqui pra baixo */}
-      <div className={styles.history}>
-        <button onClick={() => setShowHistory(!showHistory)}>
-          Histórico {showHistory ? <CaretUp /> : <CaretDown />}
-        </button>
-        {showHistory &&
-          dadosTransacao.map((item) => (
-            <TransactionItem key={item.transacao.idTransacao} data={item} />
-          ))}
+        <div className={styles.graficoItem}>
+          <strong>Entradas - Total: {formatarValor(entradasTotal.y)}</strong>
+          <MonthlyHistogram data={transacoesEntrada} />
+        </div>
+        <div className={styles.graficoItem}>
+          <strong>Saídas - Total: {formatarValor(saidasTotal.y)}</strong>
+          <MonthlyHistogram data={transacoesSaida} color="red" />
+        </div>
+        <div className={styles.graficoItem}>
+          <strong>Comparativo</strong>
+          <PieGraph data={[entradasTotal, saidasTotal]} />
+        </div>
       </div>
     </section>
   )

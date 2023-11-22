@@ -1,0 +1,27 @@
+.acessibilityBarContainer {
+  position: fixed;
+  z-index: 1000;
+  background-color: var(--blue-500);
+  width: 100%;
+}
+
+.acessibilityBarContainer > div{
+  max-width: 1200px;
+  width: 100%;
+  padding: 8px 20px;
+  margin: auto;
+
+  display: flex;
+  gap: 20px;
+}
+
+.acessibilityBarContainer > div > button{
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--white);
+}
+.acessibilityBarContainer > div > button:hover{
+  color: var(--blue-300);
+}
