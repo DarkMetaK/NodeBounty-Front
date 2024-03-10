@@ -76,13 +76,17 @@ export function Plans() {
                         </p>
                       </div>
                     </div>
-                    <div class={"card-group"}>
-                      <div class={"card bg-transparent border-white"}>
-                        <div class="card-body text-white">
-                          <h4 class="card-title"> <strong>Plano {plans[0].idPlano}</strong></h4>
-                          <p class="card-text ">Cashback exclusivo de{' '}
-                            <b>{plans[0].porcentagemCashback}%</b> para
-                            produtos de beleza.
+                    <div className={'card-group'}>
+                      <div className={'card bg-transparent border-white'}>
+                        <div className="card-body text-white">
+                          <h4 className="card-title">
+                            {' '}
+                            <strong>Plano {plans[0].idPlano}</strong>
+                          </h4>
+                          <p className="card-text ">
+                            Cashback exclusivo de{' '}
+                            <b>{plans[0].porcentagemCashback}%</b> para produtos
+                            de beleza.
                           </p>
                           <p>
                             Com desconto nas parcerias:
@@ -91,15 +95,18 @@ export function Plans() {
                             </p>
                           </p>
                         </div>
-                        <div class="card-footer">
-                        </div>
+                        <div className="card-footer"></div>
                       </div>
-                      <div class="card bg-transparent border-white">
-                        <div class="card-body text-white ">
-                          <h4 class="card-title"> <strong>Plano {plans[1].idPlano}</strong></h4>
-                          <p class="card-text">Cashback exclusivo de{' '}
-                            <b>{plans[1].porcentagemCashback}%</b> para
-                            produtos de tech.
+                      <div className="card bg-transparent border-white">
+                        <div className="card-body text-white ">
+                          <h4 className="card-title">
+                            {' '}
+                            <strong>Plano {plans[1].idPlano}</strong>
+                          </h4>
+                          <p className="card-text">
+                            Cashback exclusivo de{' '}
+                            <b>{plans[1].porcentagemCashback}%</b> para produtos
+                            de tech.
                           </p>
                           <p>
                             Com desconto nas parcerias:
@@ -108,15 +115,18 @@ export function Plans() {
                             </p>
                           </p>
                         </div>
-                        <div class="card-footer">
-                        </div>
+                        <div className="card-footer"></div>
                       </div>
-                      <div class="card bg-transparent border-white">
-                        <div class="card-body text-white">
-                          <h4 class="card-title"> <strong>Plano {plans[2].idPlano}</strong></h4>
-                          <p class="card-text">Cashback exclusivo de{' '}
-                            <b>{plans[2].porcentagemCashback}%</b> para
-                            produtos de esporte e saúde.
+                      <div className="card bg-transparent border-white">
+                        <div className="card-body text-white">
+                          <h4 className="card-title">
+                            {' '}
+                            <strong>Plano {plans[2].idPlano}</strong>
+                          </h4>
+                          <p className="card-text">
+                            Cashback exclusivo de{' '}
+                            <b>{plans[2].porcentagemCashback}%</b> para produtos
+                            de esporte e saúde.
                           </p>
                           <p>
                             Com desconto nas parcerias:
@@ -125,8 +135,7 @@ export function Plans() {
                             </p>
                           </p>
                         </div>
-                        <div class="card-footer">
-                        </div>
+                        <div className="card-footer"></div>
                       </div>
                     </div>
                   </div>
