@@ -21,6 +21,7 @@ export function Router() {
   const { token } = useContext(authContext)
 
   return (
+    //Arquivo para rotas
     <Routes>
       {token ? (
         <>

@@ -39,7 +39,10 @@ export function CreditCard({ numeroCartao, validadeCartao, cvcCartao, color }) {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="tamanho">
+      
           <div
+          //teste
+          //BG modificado por tipo de conta
             className={`${styles.cardContainer}`}
             style={
               color === 'bgBeauty'

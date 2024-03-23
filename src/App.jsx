@@ -8,6 +8,7 @@ import { Router } from '@/Router.jsx'
 import './global.css'
 
 export function App() {
+  //routes 
   return (
     <BrowserRouter>
       <AuthContextProvider>
