@@ -2,9 +2,10 @@ import { Link, NavLink } from 'react-router-dom'
 import { List } from 'phosphor-react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import Logo from '@assets/logo-preta.svg'
+import Logo from '@assets/logo.svg'
 
 import styles from './styles.module.css'
+import { Button } from '@components/Button'
 
 export function Header() {
   return (
@@ -16,8 +17,8 @@ export function Header() {
 
         <nav className={styles.nav}>
           <NavLink to="/sobre">Sobre</NavLink>
-          <NavLink to="/cadastro">Abrir conta</NavLink>
-          <NavLink to="/login">Acesso</NavLink>
+          <NavLink to="/login">Entrar</NavLink>
+          <Button title="Abrir conta" link="/cadastro" />
 
           <DropdownMenu.Root modal={false}>
             <DropdownMenu.Trigger className={styles.hamburguerMenu}>
@@ -30,16 +31,13 @@ export function Header() {
                 sideOffset={4}
               >
                 <DropdownMenu.Item>
-                  <NavLink to="/">Node Invest +</NavLink>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item>
                   <NavLink to="/sobre">Sobre</NavLink>
                 </DropdownMenu.Item>
                 <DropdownMenu.Item>
-                  <NavLink to="/cadastro">Abrir conta</NavLink>
+                  <NavLink to="/cadastro">Entrar</NavLink>
                 </DropdownMenu.Item>
                 <DropdownMenu.Item>
-                  <NavLink to="/login">Acesso</NavLink>
+                  <NavLink to="/login">Abrir Conta</NavLink>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Portal>
