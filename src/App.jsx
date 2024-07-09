@@ -3,12 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './lib/dayjs'
 
+import './global.css'
 import { AuthContextProvider } from '@contexts/AuthContext'
 import { Router } from '@/Router.jsx'
-import './global.css'
 
 export function App() {
-  //routes 
   return (
     <BrowserRouter>
       <AuthContextProvider>

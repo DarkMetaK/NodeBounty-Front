@@ -1,6 +1,7 @@
 .container {
   padding: 1rem 1.5rem;
   border-radius: 4px;
+  border: 0;
 
   display: flex;
   align-items: center;
@@ -9,6 +10,7 @@
   background: var(--gradient) !important;
   color: var(--white);
 
+  font-weight: 800;
   font-size: 0.875rem;
   line-height: 1.1;
   text-transform: uppercase;
@@ -24,4 +26,12 @@
 }
 .container:hover {
   background: var(--green-6) !important;
+}
+
+.lg {
+  padding: 1rem 2rem;
+
+  font-weight: 800;
+  font-size: 1.125rem;
+  line-height: 1.5;
 }
