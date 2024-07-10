@@ -19,6 +19,8 @@
   --green-6: #026E00;
   --gradient: linear-gradient(180deg, #026E00 0%, #024D00 100%);
 
+  --red: #F75A68;
+
   --blue-100: #cad8dd;
   --blue-200: #9fb7bf;
   --blue-300: #07b0f2;
@@ -27,8 +29,6 @@
   --blue-600: #213238;
 
   --pink-400: #FF45EC;
-  
-  --red-400: #dc3545;
 }
 
 @font-face {
@@ -74,7 +74,7 @@ a {
   color: currentColor;
 }
 
-ul, p {
+ul, p, legend {
   margin: 0;
   padding: 0;
   list-style: none;

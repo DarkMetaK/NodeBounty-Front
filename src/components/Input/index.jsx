@@ -7,7 +7,7 @@ export function Input({ label, icon, errors, ...rest }) {
     <label className={styles.container}>
       {label}
       <div>
-        <InputMask {...rest} style={errors && { borderBottomColor: 'red' }} />
+        <InputMask {...rest} style={errors && { borderColor: 'red' }} />
         {icon && icon}
       </div>
       {errors && <p className={styles.errorMessage}>{errors}</p>}
