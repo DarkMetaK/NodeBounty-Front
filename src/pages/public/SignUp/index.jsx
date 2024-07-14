@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,24 +22,17 @@ const signUpSchema = z
       .refine((name) => name.trim().length, {
         message: 'Digite um nome válido.',
       }),
-    dataNascimento: z.string({ required_error: 'Esse campo é obrigatório' }),
-    rg: z
-      .string({ required_error: 'Esse campo é obrigatório' })
-      .refine((rg) => rg.trim().replace(/_/gi, '').length === 12, {
-        message: 'Digite um RG válido',
-      }),
     cpf: z
       .string({ required_error: 'Esse campo é obrigatório' })
       .refine((cpf) => cpf.trim().replace(/_/gi, '').length === 14, {
         message: 'Digite um CPF válido',
       }),
-    cep: z
+    rg: z
       .string({ required_error: 'Esse campo é obrigatório' })
-      .refine((cep) => cep.trim().replace(/_/gi, '').length === 9, {
-        message: 'Digite um CEP válido',
+      .refine((rg) => rg.trim().replace(/_/gi, '').length === 12, {
+        message: 'Digite um RG válido',
       }),
-    endereco: z.string({ required_error: 'Esse campo é obrigatório' }),
-    numero: z.string({ required_error: 'Esse campo é obrigatório' }),
+    dataNascimento: z.string({ required_error: 'Esse campo é obrigatório' }),
     telefone: z
       .string({ required_error: 'Esse campo é obrigatório' })
       .refine((telefone) => telefone.trim().replace(/_/gi, '').length === 17, {
@@ -47,6 +41,13 @@ const signUpSchema = z
     email: z
       .string({ required_error: 'Esse campo é obrigatório' })
       .email('E-mail inválido'),
+    cep: z
+      .string({ required_error: 'Esse campo é obrigatório' })
+      .refine((cep) => cep.trim().replace(/_/gi, '').length === 9, {
+        message: 'Digite um CEP válido',
+      }),
+    endereco: z.string({ required_error: 'Esse campo é obrigatório' }),
+    numero: z.string({ required_error: 'Esse campo é obrigatório' }),
     senha: z
       .string({ required_error: 'Esse campo é obrigatório' })
       .min(8, 'A senha deve conter no mínimo 8 caracteres'),
@@ -94,12 +95,23 @@ export function SignUp() {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
+    setFocus,
   } = useForm({
     resolver: zodResolver(signUpSchema),
   })
 
   const navigate = useNavigate()
   const { showToast, ToastComponents } = useToast()
+
+  useEffect(() => {
+    const firstError = Object.keys(errors).reduce((acc, field) => {
+      return errors[acc] ? acc : field
+    }, null)
+
+    if (firstError) {
+      setFocus(firstError)
+    }
+  }, [errors, setFocus])
 
   async function handleRegisterUser(data) {
     try {
@@ -109,7 +121,7 @@ export function SignUp() {
       const isAppError = error instanceof AppError
       const title = isAppError ? error.message : 'Erro no servidor.'
       const description = isAppError
-        ? 'Certifique-se que o e-mail, cpf e rg são únicos.'
+        ? 'Certifique-se que o e-mail, cpf e rg fornecidos são únicos.'
         : 'Tente novamente mais tarde.'
 
       showToast(title, description, true)
@@ -138,13 +150,11 @@ export function SignUp() {
 
             <Controller
               name="nome"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="Nome Completo"
                   type="text"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
+                  {...field}
                   errors={errors.nome?.message}
                 />
               )}
@@ -153,16 +163,14 @@ export function SignUp() {
 
             <Controller
               name="cpf"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="CPF"
                   type="text"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  errors={errors.cpf?.message}
                   placeholder="123.456.789-10"
                   mask="999.999.999-99"
+                  {...field}
+                  errors={errors.cpf?.message}
                 />
               )}
               control={control}
@@ -170,16 +178,14 @@ export function SignUp() {
 
             <Controller
               name="rg"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="RG"
                   type="text"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  errors={errors.rg?.message}
                   placeholder="12.345.678-9"
                   mask="99.999.999-*"
+                  {...field}
+                  errors={errors.rg?.message}
                 />
               )}
               control={control}
@@ -187,13 +193,11 @@ export function SignUp() {
 
             <Controller
               name="dataNascimento"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="Data de Nascimento"
                   type="date"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
+                  {...field}
                   errors={errors.dataNascimento?.message}
                 />
               )}
@@ -202,29 +206,25 @@ export function SignUp() {
 
             <Controller
               name="telefone"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="Telefone"
                   type="text"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  errors={errors.telefone?.message}
                   placeholder="+55 11 99999-9999"
                   mask="+5\5 99 99999-9999"
+                  {...field}
+                  errors={errors.telefone?.message}
                 />
               )}
               control={control}
             />
             <Controller
               name="email"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="E-mail"
                   type="email"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
+                  {...field}
                   errors={errors.email?.message}
                 />
               )}
@@ -237,29 +237,25 @@ export function SignUp() {
 
             <Controller
               name="cep"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="CEP"
                   type="text"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  errors={errors.cep?.message}
                   placeholder="01234-567"
                   mask="99999-999"
+                  {...field}
+                  errors={errors.cep?.message}
                 />
               )}
               control={control}
             />
             <Controller
               name="endereco"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="Endereço"
                   type="text"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
+                  {...field}
                   errors={errors.endereco?.message}
                 />
               )}
@@ -267,13 +263,11 @@ export function SignUp() {
             />
             <Controller
               name="numero"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="Numero"
                   type="text"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
+                  {...field}
                   errors={errors.numero?.message}
                 />
               )}
@@ -286,13 +280,11 @@ export function SignUp() {
 
             <Controller
               name="senha"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="Senha"
                   type="password"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
+                  {...field}
                   errors={errors.senha?.message}
                 />
               )}
@@ -300,13 +292,11 @@ export function SignUp() {
             />
             <Controller
               name="confirmarSenha"
-              render={({ field: { onChange, onBlur, value } }) => (
+              render={({ field }) => (
                 <Input
                   label="Confirmar Senha"
                   type="password"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
+                  {...field}
                   errors={errors.confirmarSenha?.message}
                 />
               )}
