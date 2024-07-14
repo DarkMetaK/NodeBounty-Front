@@ -14,7 +14,7 @@ import { CreditCardPage } from '@pages/private/CreditCardPage'
 import { PublicHome } from '@pages/public/Home'
 import { SignUp } from '@pages/public/SignUp'
 import { SignIn } from '@pages/public/SignIn'
-import { Sobre } from '@pages/public/Sobre'
+import { About } from '@pages/public/About'
 import { Ajuda } from '@pages/public/Ajuda'
 
 export function Router() {
@@ -39,7 +39,7 @@ export function Router() {
           <Route path="/" element={<PublicHome />} />
           <Route path="/cadastro" element={<SignUp />} />
           <Route path="/login" element={<SignIn />} />
-          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/sobre" element={<About />} />
           <Route path="/ajuda" element={<Ajuda />} />
         </Route>
       )}
