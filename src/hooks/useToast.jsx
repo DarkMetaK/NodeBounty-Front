@@ -26,8 +26,8 @@ export const useToast = () => {
   const ToastComponents = toasts.map((toast) => (
     <Toast
       key={toast.id}
-      titulo={toast.title}
-      descricao={toast.description}
+      title={toast.title}
+      description={toast.description}
       isError={toast.isError}
     />
   ))

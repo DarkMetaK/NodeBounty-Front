@@ -34,10 +34,10 @@ export function Header() {
                   <NavLink to="/sobre">Sobre</NavLink>
                 </DropdownMenu.Item>
                 <DropdownMenu.Item>
-                  <NavLink to="/cadastro">Entrar</NavLink>
+                  <NavLink to="/login">Entrar</NavLink>
                 </DropdownMenu.Item>
                 <DropdownMenu.Item>
-                  <NavLink to="/login">Abrir Conta</NavLink>
+                  <NavLink to="/cadastro">Abrir Conta</NavLink>
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Portal>

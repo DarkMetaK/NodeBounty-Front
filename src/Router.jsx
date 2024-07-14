@@ -13,7 +13,7 @@ import { Configuration } from '@pages/private/Configuration'
 import { CreditCardPage } from '@pages/private/CreditCardPage'
 import { PublicHome } from '@pages/public/Home'
 import { SignUp } from '@pages/public/SignUp'
-import { Login } from '@pages/public/Login'
+import { SignIn } from '@pages/public/SignIn'
 import { Sobre } from '@pages/public/Sobre'
 import { Ajuda } from '@pages/public/Ajuda'
 
@@ -21,7 +21,6 @@ export function Router() {
   const { token } = useContext(authContext)
 
   return (
-    //Arquivo para rotas
     <Routes>
       {token ? (
         <>
@@ -32,7 +31,6 @@ export function Router() {
             <Route path="/transacoes" element={<TransactionPage />} />
             <Route path="/ajuda" element={<Ajuda />} />
             <Route path="/configuracao" element={<Configuration />} />
-            {/* ...Insira outras rotas privadas aqui */}
           </Route>
           <Route path="/planos" element={<Plans />} />
         </>
@@ -40,10 +38,9 @@ export function Router() {
         <Route path="/" element={<DefaultLayout />}>
           <Route path="/" element={<PublicHome />} />
           <Route path="/cadastro" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<SignIn />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/ajuda" element={<Ajuda />} />
-          {/* ...Insira outras rotas públicas aqui */}
         </Route>
       )}
     </Routes>
