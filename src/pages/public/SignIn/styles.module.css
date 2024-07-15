@@ -51,8 +51,6 @@
   color: var(--green-3);
 }
 
-
-
 @media(max-width: 960px) {
   .container {
     grid-template-columns: 1fr 2fr;

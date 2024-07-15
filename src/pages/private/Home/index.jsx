@@ -16,7 +16,6 @@ export function PrivateHome() {
   const { showToast, ToastComponents } = useToast()
   const navigate = useNavigate()
 
-  // Carregando dados da conta
   const loadAccountData = useCallback(async () => {
     try {
       setIsLoading(true)
@@ -25,8 +24,6 @@ export function PrivateHome() {
       setIsLoading(false)
     } catch (error) {
       const isAppError = error instanceof AppError
-      // Verificando se o erro ocorreu pois o usuário não possui conta
-      // Por não ter escolhido ainda na tela de planos.
       if (
         isAppError &&
         error.message ===
@@ -40,7 +37,6 @@ export function PrivateHome() {
     }
   }, [navigate])
 
-  // Chamando função para carregar os dados quando a página abrir
   useEffect(() => {
     loadAccountData()
   }, [loadAccountData])
