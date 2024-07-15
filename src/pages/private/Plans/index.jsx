@@ -61,22 +61,20 @@ export function Plans() {
     staleTime: 1000 * 60 * 60 * 24, // 1 day
   })
 
-  const { mutateAsync, isLoading: loadingPost } = useMutation({
-    mutationFn: registerSelectedPlan,
-    onSuccess: () => {
-      navigate('/')
+  const { mutateAsync: handleSubmitPlan, isLoading: loadingPost } = useMutation(
+    {
+      mutationFn: registerSelectedPlan,
+      onSuccess: () => {
+        navigate('/')
+      },
+      onError: (error) => {
+        alert('Ocorreu um erro, por favor tente novamente')
+        console.log(error)
+      },
     },
-    onError: (error) => {
-      alert('Ocorreu um erro, por favor tente novamente')
-      console.log(error)
-    },
-  })
+  )
 
   const isLoading = userAccount.isLoading || availablePlans.isLoading
-
-  async function handleSubmitPlan() {
-    await mutateAsync({ nomePlano: selectedPlan })
-  }
 
   if (isLoading) {
     return (
