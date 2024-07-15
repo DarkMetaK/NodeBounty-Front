@@ -74,8 +74,8 @@ export function Plans() {
 
   const isLoading = userAccount.isLoading || availablePlans.isLoading
 
-  function handleSubmitPlan() {
-    mutateAsync({ nomePlano: selectedPlan })
+  async function handleSubmitPlan() {
+    await mutateAsync({ nomePlano: selectedPlan })
   }
 
   if (isLoading) {

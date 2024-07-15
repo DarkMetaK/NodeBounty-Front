@@ -3,10 +3,11 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import { Link, useNavigate } from 'react-router-dom'
+import { useMutation } from 'react-query'
 
 import signInImage from '@assets/signInImage.png'
 
-import { api } from '@lib/api'
+import { signIn } from '@api/sign-in'
 import { authContext } from '@contexts/AuthContext'
 import { useToast } from '@hooks/useToast'
 import { AppError } from '@utils/AppError'
@@ -26,7 +27,7 @@ export function SignIn() {
   const {
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setFocus,
   } = useForm({
     resolver: zodResolver(signInSchema),
@@ -46,12 +47,13 @@ export function SignIn() {
     }
   }, [errors, setFocus])
 
-  async function handleSignIn(formData) {
-    try {
-      const { data } = await api.post('/clientes/login', formData)
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: signIn,
+    onSuccess: (data) => {
       saveToken(data.token)
       navigate('/planos')
-    } catch (error) {
+    },
+    onError: (error) => {
       const isAppError = error instanceof AppError
       const title = isAppError ? error.message : 'Erro no servidor.'
       const description = isAppError
@@ -59,7 +61,14 @@ export function SignIn() {
         : 'Tente novamente mais tarde.'
 
       showToast(title, description, true)
-    }
+    },
+  })
+
+  async function handleSignIn(data) {
+    await mutateAsync({
+      email: data.email,
+      senha: data.senha,
+    })
   }
 
   return (
@@ -96,12 +105,7 @@ export function SignIn() {
             control={control}
           />
 
-          <Button
-            title="Entrar"
-            type="submit"
-            size="lg"
-            disabled={isSubmitting}
-          />
+          <Button title="Entrar" type="submit" size="lg" disabled={isLoading} />
         </form>
 
         <Link to="/cadastro">Ainda não sou cliente</Link>

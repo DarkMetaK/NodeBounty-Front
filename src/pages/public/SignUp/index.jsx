@@ -4,10 +4,11 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import dayjs from 'dayjs'
+import { useMutation } from 'react-query'
 
 import graphImage from '@assets/grafo.png'
 
-import { api } from '@lib/api'
+import { registerUser } from '@api/register-user'
 import { useToast } from '@hooks/useToast'
 import { AppError } from '@utils/AppError'
 
@@ -94,7 +95,7 @@ export function SignUp() {
   const {
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setFocus,
   } = useForm({
     resolver: zodResolver(signUpSchema),
@@ -113,11 +114,12 @@ export function SignUp() {
     }
   }, [errors, setFocus])
 
-  async function handleRegisterUser(data) {
-    try {
-      await api.post('/clientes', { ...data })
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: registerUser,
+    onSuccess: () => {
       navigate('/login')
-    } catch (error) {
+    },
+    onError: (error) => {
       const isAppError = error instanceof AppError
       const title = isAppError ? error.message : 'Erro no servidor.'
       const description = isAppError
@@ -125,7 +127,11 @@ export function SignUp() {
         : 'Tente novamente mais tarde.'
 
       showToast(title, description, true)
-    }
+    },
+  })
+
+  async function handleRegisterUser(data) {
+    await mutateAsync(data)
   }
 
   return (
@@ -304,7 +310,7 @@ export function SignUp() {
             />
           </fieldset>
 
-          <Button title="Criar Conta" type="submit" disabled={isSubmitting} />
+          <Button title="Criar Conta" type="submit" disabled={isLoading} />
         </form>
       </div>
 
