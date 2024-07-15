@@ -1,11 +1,15 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useMutation, useQuery } from 'react-query'
 
-import { api } from '@lib/api.js'
-import { authContext } from '@contexts/AuthContext.jsx'
 import healthCardImage from '@assets/healthCard.png'
 import beautyCardImage from '@assets/beautyCard.png'
 import techCardImage from '@assets/techCard.png'
+
+import { getAvailablePlans } from '@api/get-available-plans'
+import { getUserAccount } from '@api/get-user-account'
+import { registerSelectedPlan } from '@api/register-selected-plan'
+import { authContext } from '@contexts/AuthContext.jsx'
 
 import { Loading } from '@components/Loading'
 import { Button } from '@components/Button'
@@ -26,48 +30,52 @@ const planCustomStyles = {
 }
 
 export function Plans() {
-  const [plans, setPlans] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
   const [selectedPlan, setSelectedPlan] = useState('Beauty')
-
   const { logout } = useContext(authContext)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    async function retrievePlansData() {
-      try {
-        setIsLoading(true)
-        const response = await api.get('/conta')
-
-        if (response.status === 200) {
-          navigate('/')
-        }
-      } catch (error) {
-        try {
-          const { data } = await api.get('/planos')
-          setPlans(data)
-          setIsLoading(false)
-          console.log(data)
-        } catch (error) {
-          alert('Ocorreu um erro ao carregar os planos')
-          console.log(error)
-          logout()
-        }
-      }
-    }
-    retrievePlansData()
-  }, [logout, navigate])
-
-  async function handleSubmitPlan() {
-    try {
-      await api.post('/conta', {
-        nomePlano: selectedPlan,
-      })
+  const userAccount = useQuery({
+    queryKey: ['account'],
+    queryFn: getUserAccount,
+    onSuccess: () => {
       navigate('/')
-    } catch (error) {
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+  })
+
+  const availablePlans = useQuery({
+    queryKey: ['plans'],
+    queryFn: getAvailablePlans,
+    enabled: userAccount.isError,
+    onError: (error) => {
+      alert('Ocorreu um erro ao carregar os planos')
+      console.log(error)
+      logout()
+    },
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+    staleTime: 1000 * 60 * 60 * 24, // 1 day
+  })
+
+  const { mutateAsync, isLoading: loadingPost } = useMutation({
+    mutationFn: registerSelectedPlan,
+    onSuccess: () => {
+      navigate('/')
+    },
+    onError: (error) => {
       alert('Ocorreu um erro, por favor tente novamente')
       console.log(error)
-    }
+    },
+  })
+
+  const isLoading = userAccount.isLoading || availablePlans.isLoading
+
+  function handleSubmitPlan() {
+    mutateAsync({ nomePlano: selectedPlan })
   }
 
   if (isLoading) {
@@ -97,7 +105,7 @@ export function Plans() {
 
       <div className={styles.content}>
         <header className={styles.options}>
-          {plans.map((item) => (
+          {availablePlans.data.map((item) => (
             <button
               key={item.idPlano}
               onClick={() => setSelectedPlan(item.idPlano)}
@@ -140,7 +148,11 @@ export function Plans() {
                   }}
                 />
                 Descontos nas lojas parceiras:{' '}
-                {plans.find((item) => item.idPlano === selectedPlan).parcerias}
+                {
+                  availablePlans.data.find(
+                    (item) => item.idPlano === selectedPlan,
+                  ).parcerias
+                }
               </li>
             </ul>
 
@@ -148,6 +160,7 @@ export function Plans() {
               title="Escolher plano"
               size="lg"
               onClick={handleSubmitPlan}
+              disabled={loadingPost}
             />
           </div>
 
