@@ -1,9 +1,12 @@
-import { useState, useCallback, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 
-import { api } from '@lib/api'
+import { getUserAccount } from '@api/get-user-account'
+import { updateAccount } from '@api/update-account'
+import { deleteAccount } from '@api/delete-account'
 import { useToast } from '@hooks/useToast'
 import { AppError } from '@utils/AppError'
 import { authContext } from '@contexts/AuthContext.jsx'
@@ -13,7 +16,7 @@ import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 import styles from './styles.module.css'
 
-const schema = z.object({
+const updateFormSchema = z.object({
   nome: z
     .string()
     .refine((name) => name.trim().length, {
@@ -41,46 +44,46 @@ const schema = z.object({
 })
 
 export function UpdateForm() {
-  const [isLoading, setIsLoading] = useState(true)
   const { showToast, ToastComponents } = useToast()
+  const queryClient = useQueryClient()
 
   const { logout } = useContext(authContext)
-
   const {
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setValue,
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(updateFormSchema),
   })
 
-  // Carregando dados da conta
-  const loadAccountData = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      const { data } = await api.get('/conta')
+  const { isLoading: isLoadingProfileData } = useQuery({
+    queryKey: ['account'],
+    queryFn: getUserAccount,
+    onSuccess: (data) => {
       setValue('nome', data.cliente.nome)
       setValue('endereco', data.cliente.endereco)
       setValue('cep', data.cliente.cep)
       setValue('numero', String(data.cliente.numero))
       setValue('telefone', data.cliente.telefone)
-      setIsLoading(false)
-    } catch (error) {
+    },
+    onError: (error) => {
       alert('Um erro ocorreu')
       console.log(error)
-    }
-  }, [setValue])
+    },
+  })
 
-  useEffect(() => {
-    loadAccountData()
-  }, [loadAccountData])
+  const { mutateAsync: updateUser, isLoading: isUpdating } = useMutation({
+    mutationFn: updateAccount,
+    onSuccess: () => {
+      queryClient.invalidateQueries('account')
 
-  async function handleAtualizarUsuario(formData) {
-    try {
-      await api.put('/clientes', formData)
-      loadAccountData() // Chamando a função para carregar os dados novamente
-    } catch (error) {
+      const title = 'Dados atualizados'
+      const description = 'Suas informações foram atualizadas com sucesso!'
+
+      showToast(title, description)
+    },
+    onError: (error) => {
       const isAppError = error instanceof AppError
       const title = isAppError ? error.message : 'Erro no servidor.'
       const description = isAppError
@@ -88,38 +91,46 @@ export function UpdateForm() {
         : 'Tente novamente mais tarde.'
 
       showToast(title, description, true)
-    }
+    },
+  })
+
+  const { mutateAsync: deleteUser, isLoading: isDeleting } = useMutation({
+    mutationFn: deleteAccount,
+    onSuccess: () => {
+      logout()
+    },
+    onError: (error) => {
+      const isAppError = error instanceof AppError
+      const title = isAppError ? error.message : 'Erro no servidor.'
+      const description = isAppError
+        ? 'Verifique os dados e tente novamente.'
+        : 'Tente novamente mais tarde.'
+
+      showToast(title, description, true)
+    },
+  })
+
+  async function handleUpdateUser(data) {
+    await updateUser(data)
   }
 
-  async function handleDeletarConta() {
+  async function handleDeleteAccount() {
     const proceedWithDeleting = window.confirm(
       'Você deseja realmente apagar a conta?',
     )
 
     if (proceedWithDeleting) {
-      try {
-        await api.delete('/clientes')
-        logout()
-      } catch (error) {
-        const isAppError = error instanceof AppError
-        const title = isAppError ? error.message : 'Erro no servidor.'
-        const description = isAppError
-          ? 'Verifique os dados e tente novamente.'
-          : 'Tente novamente mais tarde.'
-
-        showToast(title, description, true)
-      }
+      await deleteUser()
     }
   }
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  if (isLoadingProfileData) {
+    return <Loading />
+  }
+
+  return (
     <section>
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(handleAtualizarUsuario)}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(handleUpdateUser)}>
         <div>
           <Controller
             name="nome"
@@ -212,31 +223,31 @@ export function UpdateForm() {
             control={control}
           />
           <Button
-            titulo="Alterar Dados"
-            tipo="primario"
+            title="Alterar Dados"
             type="submit"
             style={{
               maxWidth: '20rem',
               alignSelf: 'center',
               width: '100%',
             }}
-            disabled={isSubmitting}
+            disabled={isUpdating || isDeleting}
           />
         </div>
-        {ToastComponents}
       </form>
       <Button
-        titulo="Deletar Conta"
-        tipo="primario"
+        title="Deletar Conta"
         type="submit"
         style={{
           maxWidth: '20rem',
-          margin: '1.25rem auto 0 auto',
+          margin: '1.25rem auto',
           alignSelf: 'center',
           width: '100%',
         }}
-        onClick={handleDeletarConta}
+        onClick={handleDeleteAccount}
+        disabled={isDeleting}
       />
+
+      {ToastComponents}
     </section>
   )
 }
