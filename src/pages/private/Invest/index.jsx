@@ -38,19 +38,19 @@ export function Invest() {
 
   function handleEstimateInvestment(data) {
     const rentabilidadeMensal = 0.01 // Mensal de 1% ao mês
-    let saldo = data.initialInvestment
-    let totalInvestido = saldo
+    let balance = data.initialInvestment
+    let totalInvested = balance
 
     // Adicionando os investimentos mensais ao saldo
     for (let i = 0; i < data.amountOfMonths; i++) {
-      saldo += data.monthlyInvestment
-      totalInvestido += data.monthlyInvestment
+      balance += data.monthlyInvestment
+      totalInvested += data.monthlyInvestment
 
-      const rendimentoMensal = saldo * rentabilidadeMensal
-      saldo += rendimentoMensal
+      const rendimentoMensal = balance * rentabilidadeMensal
+      balance += rendimentoMensal
     }
-    setTotalInvested(totalInvestido)
-    setResultValue(saldo)
+    setTotalInvested(totalInvested)
+    setResultValue(balance)
   }
 
   function currencyStringConversor(number) {
@@ -117,8 +117,7 @@ export function Invest() {
               control={control}
             />
             <Button
-              titulo="Calcular Investimento"
-              tipo="primario"
+              title="Calcular Investimento"
               type="submit"
               style={{
                 maxWidth: '20rem',
