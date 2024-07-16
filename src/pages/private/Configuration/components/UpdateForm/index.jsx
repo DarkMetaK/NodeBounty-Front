@@ -68,7 +68,11 @@ export function UpdateForm() {
       setValue('telefone', data.cliente.telefone)
     },
     onError: (error) => {
-      alert('Um erro ocorreu')
+      const isAppError = error instanceof AppError
+      const title = isAppError ? error.message : 'Erro no servidor.'
+      const description = 'Falha ao carregar os dados da conta.'
+      showToast(title, description, true)
+
       console.log(error)
     },
   })

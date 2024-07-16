@@ -8,7 +8,7 @@ import { AuthLayout } from '@layouts/AuthLayout.jsx'
 import { PrivateHome } from '@pages/private/Home'
 import { Plans } from '@pages/private/Plans'
 import { Invest } from '@pages/private/Invest'
-import { TransactionPage } from '@pages/private/transactionPage'
+import { Transactions } from '@pages/private/Transactions'
 import { Configuration } from '@pages/private/Configuration'
 import { CreditCardPage } from '@pages/private/CreditCardPage'
 import { PublicHome } from '@pages/public/Home'
@@ -28,7 +28,7 @@ export function Router() {
             <Route path="/" element={<PrivateHome />} />
             <Route path="/cartoes" element={<CreditCardPage />} />
             <Route path="/investir" element={<Invest />} />
-            <Route path="/transacoes" element={<TransactionPage />} />
+            <Route path="/transacoes" element={<Transactions />} />
             <Route path="/ajuda" element={<Ajuda />} />
             <Route path="/configuracao" element={<Configuration />} />
           </Route>

@@ -11,7 +11,6 @@ export function Report() {
   const { data, isLoading } = useQuery({
     queryKey: ['transactions'],
     queryFn: getTransactions,
-    staleTime: 1000 * 60 * 1, // 1 minute
     onError: (error) => {
       alert('Um erro ocorreu')
       console.log(error)

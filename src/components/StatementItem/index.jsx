@@ -9,7 +9,7 @@ import WithdrawIcon from '@assets/withdraw.svg'
 import DepositIcon from '@assets/deposit.svg'
 import TransferIcon from '@assets/transfer.svg'
 
-export function UnitExctract({ data, owner }) {
+export function StatementItem({ data, owner }) {
   const generatePDF = () => {
     const pdf = new JsPDF()
     pdf.addFont(fontBold, fontBold, 'normal')
@@ -200,18 +200,19 @@ export function UnitExctract({ data, owner }) {
         <div className={styles.box}>
           <div
             className={`${styles.valor} ${
-              formatarValorSignal(data.transacao.valorTransacao).className
+              formatarValorSignal(data.transacao.valorTransacao)?.className
             }`}
           >
-            {formatarValorSignal(data.transacao.valorTransacao).value}
+            {formatarValorSignal(data.transacao.valorTransacao)?.value}
           </div>
-          <img
-            className={styles.pdf_svg}
-            src={pdfButton}
-            alt="Botão PDF"
-            onClick={generatePDF}
-          />
-          <div className={styles.tooltip}>Clique para gerar PDF</div>
+          <button className={styles.pdfButton}>
+            <img
+              className={styles.pdf_svg}
+              src={pdfButton}
+              alt="Botão PDF"
+              onClick={generatePDF}
+            />
+          </button>
         </div>
       </div>
     </div>
