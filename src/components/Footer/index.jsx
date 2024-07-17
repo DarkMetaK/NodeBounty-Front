@@ -1,40 +1,60 @@
-import Logo from '@assets/logo-branca.svg'
+import { Link } from 'react-router-dom'
+
+import Logo from '@assets/logo.svg'
+
 import styles from './styles.module.css'
 
 export function Footer() {
   return (
-    <footer>
+    <footer className={styles.wrapper}>
       <div className={styles.container}>
-        <div>
+        <div className={styles.logo}>
           <img src={Logo} alt="Logo do Node Bounty" />
         </div>
-        <div className={styles.flex}>
+
+        <div className={styles.service}>
+          <h6>Atendimento</h6>
+          <Link to="/sobre">Perguntas Frequentes</Link>
+
           <ul>
-            <li>Contato</li>
-            <li>Atendimento 24h</li>
-            <li>Chat no aplicativo</li>
-            <li>9999-9999 (Regiões metropolitanas)</li>
-            <li>0800-000-000 (Demais localidades)</li>
-            <li>WhatsApp: 11 0000-0000 </li>
-            <li>(Não é preciso inserir o dígito 9 antes do número)</li>
-          </ul>
-          <ul>
-            <li>Reclamações, sugestões e elogios: 0800-000-0000</li>
-            <li>SAC - Deficiência auditiva ou de fala: 0800-000-0000</li>
             <li>
-              Horário de funcionamento: 24 horas por dia, 7 dias por semana
+              <strong>Canais de atendimento</strong>
+              <p>
+                Segunda à Sexta das 9h até 21h
+                <br />
+                Sábado das 9h às 15h
+              </p>
             </li>
-            <li>Se não ficou satisfeito, ligue para: 0800-000-0000</li>
+
             <li>
-              Horário de funcionamento: De segunda a sexta-feira (exceto
-              feriados), das 9h às 18h
+              <strong>Capitais</strong>
+              <p>9999 9999</p>
+            </li>
+
+            <li>
+              <strong>Demais localidades</strong>
+              <p>0800 999 9999</p>
             </li>
           </ul>
         </div>
+
+        <div className={styles.links}>
+          <h6>Informações</h6>
+          <p>
+            Sobre
+            <br />
+            Node Invest+
+            <br />
+            Produtos
+            <br />
+            Entrar
+            <br />
+            Criar conta
+            <br />
+            Termos e Condições
+          </p>
+        </div>
       </div>
-      <p className={styles.disclaimer}>
-        Node Bounty - Todos os direitos reservados{' '}
-      </p>
     </footer>
   )
 }

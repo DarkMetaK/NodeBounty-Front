@@ -24,7 +24,7 @@
 }
 
 .form {
-  background-color: rgba(30, 30, 30, 0.2);
+  background-color: var(--gray-12);
   padding: 2.5rem;
   border-radius: 5px;
   display: flex;
@@ -33,7 +33,7 @@
 }
 
 .investmentResult {
-  background-color: rgba(30, 30, 30, 0.2);
+  background-color: var(--gray-12);
   padding: 2.5rem;
   border-radius: 5px;
   display: flex;
@@ -48,25 +48,26 @@
 
 .investmentResultValues {
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--blue-400);
+  border-bottom: 2px solid var(--gray-11);
 }
 .investmentResultValues span{
   display: block;
   font-size: 1rem;
-  color: var(--blue-100);
+  color: var(--gray-1);
 }
 .investmentResultValues strong {
   display: block;
   font-size: 2rem;
-  color: var(--blue-300);
-  font-weight: 500;
+  color: var(--green-3);
+  font-family: 'Metropolis', sans-serif;
+  font-weight: 800;
 }
 
 .investmentInfo {
   font-size: 1rem;
   line-height: 1.6;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--blue-400);
+  border-bottom: 2px solid var(--gray-11);
 }
 .investmentInfo p, .profitabilityInfo p {
   margin-bottom: 0;
@@ -75,5 +76,5 @@
 .profitabilityInfo {
   font-size: 0.875rem;
   line-height: 1.6;
-  color: var(--blue-100);
+  color: var(--gray-6);
 }

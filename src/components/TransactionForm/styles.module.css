@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  padding: 1.25rem;
+  background-color: var(--gray-12);
+  border-radius: 8px;
+  display: grid;
+  gap: 1rem;
+}
+
+.container > form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.balance {
+  font-size: 2rem;
+  line-height: 1.5;
+  font-weight: 800;
+}

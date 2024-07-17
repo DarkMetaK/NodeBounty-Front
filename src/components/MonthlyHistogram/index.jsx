@@ -33,8 +33,6 @@ export function MonthlyHistogram({ data, color = 'green' }) {
     value: groupedData[monthYear],
   }))
 
-  console.log(chartData)
-
   return (
     <div className={styles.graphContainer}>
       <VictoryChart
