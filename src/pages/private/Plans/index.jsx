@@ -7,7 +7,6 @@ import techCardImage from '@assets/techCard.png'
 
 import { api } from '@lib/api'
 import { AppError } from '@utils/AppError'
-import { useToast } from '@hooks/useToast'
 import { authContext } from '@contexts/AuthContext.jsx'
 
 import { Loading } from '@components/Loading'
@@ -33,7 +32,6 @@ export function Plans() {
   const [isLoading, setIsLoading] = useState(true)
   const [selectedPlan, setSelectedPlan] = useState('Beauty')
 
-  const { showToast, ToastComponents } = useToast()
   const navigate = useNavigate()
   const { logout } = useContext(authContext)
 
@@ -47,25 +45,21 @@ export function Plans() {
           navigate('/')
         }
       } catch (error) {
+        console.log(error)
         try {
           const { data } = await api.get('/planos')
+          console.log(data)
           setPlans(data)
           setIsLoading(false)
         } catch (error) {
-          const isAppError = error instanceof AppError
-          const title = isAppError ? error.message : 'Erro no servidor.'
-          const description = isAppError
-            ? 'Ocorreu um erro ao carregar os planos.'
-            : 'Tente novamente mais tarde.'
-
-          showToast(title, description, true)
+          alert('Falha ao tentar carregar os planos')
           console.log(error)
           logout()
         }
       }
     }
     retrievePlansData()
-  }, [logout, navigate, showToast])
+  }, [logout, navigate])
 
   async function handleSubmitPlan() {
     try {
@@ -74,13 +68,7 @@ export function Plans() {
       })
       navigate('/')
     } catch (error) {
-      const isAppError = error instanceof AppError
-      const title = isAppError ? error.message : 'Erro no servidor.'
-      const description = isAppError
-        ? 'Ocorreu um erro ao escolher o plano.'
-        : 'Tente novamente mais tarde.'
-
-      showToast(title, description, true)
+      alert('Ocorreu um erro ao escolher o plano.')
       console.log(error)
     }
   }
@@ -175,8 +163,6 @@ export function Plans() {
           </div>
         </article>
       </div>
-
-      {ToastComponents}
     </main>
   )
 }
