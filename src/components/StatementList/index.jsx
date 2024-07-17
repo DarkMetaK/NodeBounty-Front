@@ -42,8 +42,6 @@ export function StatementList() {
     return <Loading />
   }
 
-  console.log(profileData)
-
   return (
     <>
       <div className={styles.container}>

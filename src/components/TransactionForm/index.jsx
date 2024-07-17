@@ -35,7 +35,13 @@ const transactionSchema = z
     operation: z.string(),
   })
   .refine(
-    ({ numeroConta, operation }) => operation === 'transfer' && numeroConta,
+    ({ numeroConta, operation }) => {
+      if (operation !== 'transfer') {
+        return true
+      }
+
+      return !!numeroConta
+    },
     {
       message: 'O número da conta é obrigatório para transferências',
       path: ['numeroConta'],
@@ -51,6 +57,7 @@ export function TransactionForm({ operation }) {
     setValue,
     setFocus,
     clearErrors,
+    reset,
   } = useForm({
     resolver: zodResolver(transactionSchema),
     values: { operation },
@@ -58,7 +65,8 @@ export function TransactionForm({ operation }) {
 
   useEffect(() => {
     clearErrors()
-  }, [clearErrors, operation])
+    setValue('valor', 0)
+  }, [clearErrors, operation, setValue])
 
   const queryClient = useQueryClient()
   const { data: profileData, isLoading: isLoadingProfileData } = useQuery({
@@ -97,7 +105,7 @@ export function TransactionForm({ operation }) {
   })
 
   async function handleOperation(data) {
-    if (data.valor > profileData.saldoConta) {
+    if (operation !== 'deposit' && data.valor > profileData.saldoConta) {
       showToast(
         'Valor inválido',
         'O valor não pode ser maior que o saldo disponível',
@@ -155,12 +163,15 @@ export function TransactionForm({ operation }) {
           {operation === 'transfer' && (
             <Controller
               name="numeroConta"
+              rules={{
+                maxLength: 20,
+              }}
               render={({ field }) => (
                 <Input
                   label="Número da Conta"
-                  type="number"
                   {...field}
                   errors={errors.numeroConta?.message}
+                  maxLength={20}
                 />
               )}
               control={control}

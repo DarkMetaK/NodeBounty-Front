@@ -48,7 +48,6 @@ export function Plans() {
         console.log(error)
         try {
           const { data } = await api.get('/planos')
-          console.log(data)
           setPlans(data)
           setIsLoading(false)
         } catch (error) {
@@ -104,7 +103,6 @@ export function Plans() {
             <button
               key={item.idPlano}
               onClick={() => {
-                console.log(item.idPlano)
                 setSelectedPlan(item.idPlano)
               }}
               style={

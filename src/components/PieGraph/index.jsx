@@ -3,7 +3,6 @@ import { VictoryPie } from 'victory'
 import styles from './styles.module.css'
 
 export function PieGraph({ data }) {
-  console.log(data)
   return (
     <div className={styles.graphContainer}>
       <VictoryPie
