@@ -14,6 +14,7 @@ import { authContext } from '@contexts/AuthContext.jsx'
 import { Loading } from '@components/Loading'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
+import { ConfirmDialog } from '@components/ConfirmDialog'
 import styles from './styles.module.css'
 
 const updateFormSchema = z.object({
@@ -81,6 +82,7 @@ export function UpdateForm() {
     mutationFn: updateAccount,
     onSuccess: () => {
       queryClient.invalidateQueries('account')
+      queryClient.invalidateQueries('account-card')
 
       const title = 'Dados atualizados'
       const description = 'Suas informações foram atualizadas com sucesso!'
@@ -111,21 +113,12 @@ export function UpdateForm() {
         : 'Tente novamente mais tarde.'
 
       showToast(title, description, true)
+      console.log(error)
     },
   })
 
   async function handleUpdateUser(data) {
     await updateUser(data)
-  }
-
-  async function handleDeleteAccount() {
-    const proceedWithDeleting = window.confirm(
-      'Você deseja realmente apagar a conta?',
-    )
-
-    if (proceedWithDeleting) {
-      await deleteUser()
-    }
   }
 
   if (isLoadingProfileData) {
@@ -238,17 +231,26 @@ export function UpdateForm() {
           />
         </div>
       </form>
-      <Button
-        title="Deletar Conta"
-        type="submit"
-        style={{
-          maxWidth: '20rem',
-          margin: '1.25rem auto',
-          alignSelf: 'center',
-          width: '100%',
-        }}
-        onClick={handleDeleteAccount}
-        disabled={isDeleting}
+
+      <ConfirmDialog
+        trigger={
+          <Button
+            title="Deletar Conta"
+            type="submit"
+            style={{
+              maxWidth: '20rem',
+              margin: '1.25rem auto',
+              alignSelf: 'center',
+              width: '100%',
+            }}
+            disabled={isDeleting}
+            variant="secondary"
+          />
+        }
+        title="Deseja continuar?"
+        description="Essa ação é irreversível, uma vez deletada, não será possível recuperar suas informações."
+        onConfirm={deleteUser}
+        isLoading={isDeleting}
       />
 
       {ToastComponents}

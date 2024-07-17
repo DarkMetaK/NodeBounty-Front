@@ -1,13 +1,15 @@
-import styles from './styles.module.css'
-import dayjs from 'dayjs'
 import JsPDF from 'jspdf'
-import font from '@assets/inter.ttf'
-import fontBold from '@assets/Inter-Bold.ttf'
+import dayjs from 'dayjs'
+
+import font from '@fonts/inter.ttf'
+import fontBold from '@fonts/Inter-Bold.ttf'
 import nodeimage from '@assets/logo-decorator.png'
 import pdfButton from '@assets/pdf-button.svg'
 import WithdrawIcon from '@assets/withdraw.svg'
 import DepositIcon from '@assets/deposit.svg'
 import TransferIcon from '@assets/transfer.svg'
+
+import styles from './styles.module.css'
 
 export function StatementItem({ data, owner }) {
   const generatePDF = () => {

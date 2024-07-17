@@ -1,14 +1,13 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useMutation, useQuery } from 'react-query'
 
 import healthCardImage from '@assets/healthCard.png'
 import beautyCardImage from '@assets/beautyCard.png'
 import techCardImage from '@assets/techCard.png'
 
-import { getAvailablePlans } from '@api/get-available-plans'
-import { getUserAccount } from '@api/get-user-account'
-import { registerSelectedPlan } from '@api/register-selected-plan'
+import { api } from '@lib/api'
+import { AppError } from '@utils/AppError'
+import { useToast } from '@hooks/useToast'
 import { authContext } from '@contexts/AuthContext.jsx'
 
 import { Loading } from '@components/Loading'
@@ -30,51 +29,61 @@ const planCustomStyles = {
 }
 
 export function Plans() {
+  const [plans, setPlans] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const [selectedPlan, setSelectedPlan] = useState('Beauty')
-  const { logout } = useContext(authContext)
+
+  const { showToast, ToastComponents } = useToast()
   const navigate = useNavigate()
+  const { logout } = useContext(authContext)
 
-  const userAccount = useQuery({
-    queryKey: ['account'],
-    queryFn: getUserAccount,
-    onSuccess: () => {
+  useEffect(() => {
+    async function retrievePlansData() {
+      try {
+        setIsLoading(true)
+        const response = await api.get('/conta')
+
+        if (response.status === 200) {
+          navigate('/')
+        }
+      } catch (error) {
+        try {
+          const { data } = await api.get('/planos')
+          setPlans(data)
+          setIsLoading(false)
+        } catch (error) {
+          const isAppError = error instanceof AppError
+          const title = isAppError ? error.message : 'Erro no servidor.'
+          const description = isAppError
+            ? 'Ocorreu um erro ao carregar os planos.'
+            : 'Tente novamente mais tarde.'
+
+          showToast(title, description, true)
+          console.log(error)
+          logout()
+        }
+      }
+    }
+    retrievePlansData()
+  }, [logout, navigate, showToast])
+
+  async function handleSubmitPlan() {
+    try {
+      await api.post('/conta', {
+        nomePlano: selectedPlan,
+      })
       navigate('/')
-    },
-    retry: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-  })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+      const title = isAppError ? error.message : 'Erro no servidor.'
+      const description = isAppError
+        ? 'Ocorreu um erro ao escolher o plano.'
+        : 'Tente novamente mais tarde.'
 
-  const availablePlans = useQuery({
-    queryKey: ['plans'],
-    queryFn: getAvailablePlans,
-    enabled: userAccount.isError,
-    onError: (error) => {
-      alert('Ocorreu um erro ao carregar os planos')
+      showToast(title, description, true)
       console.log(error)
-      logout()
-    },
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-    staleTime: 1000 * 60 * 60 * 24, // 1 day
-  })
-
-  const { mutateAsync: handleSubmitPlan, isLoading: loadingPost } = useMutation(
-    {
-      mutationFn: registerSelectedPlan,
-      onSuccess: () => {
-        navigate('/')
-      },
-      onError: (error) => {
-        alert('Ocorreu um erro, por favor tente novamente')
-        console.log(error)
-      },
-    },
-  )
-
-  const isLoading = userAccount.isLoading || availablePlans.isLoading
+    }
+  }
 
   if (isLoading) {
     return (
@@ -103,10 +112,13 @@ export function Plans() {
 
       <div className={styles.content}>
         <header className={styles.options}>
-          {availablePlans.data.map((item) => (
+          {plans.map((item) => (
             <button
               key={item.idPlano}
-              onClick={() => setSelectedPlan(item.idPlano)}
+              onClick={() => {
+                console.log(item.idPlano)
+                setSelectedPlan(item.idPlano)
+              }}
               style={
                 selectedPlan === item.idPlano
                   ? {
@@ -146,11 +158,7 @@ export function Plans() {
                   }}
                 />
                 Descontos nas lojas parceiras:{' '}
-                {
-                  availablePlans.data.find(
-                    (item) => item.idPlano === selectedPlan,
-                  ).parcerias
-                }
+                {plans.find((item) => item.idPlano === selectedPlan).parcerias}
               </li>
             </ul>
 
@@ -158,7 +166,7 @@ export function Plans() {
               title="Escolher plano"
               size="lg"
               onClick={handleSubmitPlan}
-              disabled={loadingPost}
+              disabled={isLoading}
             />
           </div>
 
@@ -167,6 +175,8 @@ export function Plans() {
           </div>
         </article>
       </div>
+
+      {ToastComponents}
     </main>
   )
 }
