@@ -1,0 +1,147 @@
+.intro {
+  background-color: var(--gray-12);
+
+  box-shadow: 0 -3.75rem 0 0 inset var(--gray-11);
+}
+
+.container {
+  max-width: calc(100vw - (100vw - 1200px) / 2);
+  width: 100%;
+  margin-left: auto;
+  padding: 0 0 0 1.25rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.info {
+  padding: 3.75rem 0 7.5rem 0;
+}
+
+.info > h1 {
+  margin-bottom: 2rem;
+
+  color: var(--white);
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 1.1;
+}
+.info > h1 > span {
+  display: block;
+  color: var(--green-3);
+}
+
+.info > p {
+
+  color: var(--gray-1);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media(max-width: 960px) {
+  .intro {
+    box-shadow: none;
+  }
+
+  .container {
+    padding: 0;
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+
+  .info {
+    padding: 0 1.25rem 2.5rem;
+  }
+  .info > h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .image {
+    grid-row: 1 / 2;
+    order: -1;
+    height: 15rem;
+  }
+  .image img {
+    object-fit: cover;
+    object-position: 80% 80%;
+  }
+}
+
+.faq {
+  max-width: 75rem;
+  width: 100%;
+  padding: 3.75rem 1.25rem;
+  margin: auto;
+}
+
+.faq > h2 {
+  margin-bottom: 2rem;
+
+  color: var(--white);
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 1.1;
+}
+
+.faqItem {
+  padding: 1.25rem 2.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.faqItem:nth-child(odd) {
+  background-color: var(--gray-12);
+}
+
+.faqItem > dt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  color: var(--gray-1);
+  font-weight: 500;
+  font-size: 1.125rem;
+  font-family: 'Metropolis', sans-serif;
+  line-height: 1.1;
+}
+.faqItem > dt svg {
+  flex-shrink: 0;
+  transition: 0.2s;
+}
+.faqItem > dt::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 6px;
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  background-color: var(--green-3);
+}
+
+.faqItem > dd {
+  max-height: 0px;
+  overflow: hidden;
+  margin: 0;
+
+  color: var(--gray-5);
+  font-size: 1.125rem;
+  line-height: 1.5;
+
+  transition: 0.2s ease-out;
+}
+
+@media(max-width: 960px) {
+  .faq {
+    padding: 2.5rem 1.25rem;
+  }
+}

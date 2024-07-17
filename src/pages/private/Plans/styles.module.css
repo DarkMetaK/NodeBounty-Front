@@ -1,43 +1,101 @@
-
-
-.form {
-  background-color: rgba(30, 30, 30, 0.2);
-  padding: 2.5rem;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  max-width: 35rem;
-  margin: 0 auto;
-}
-
-.benefitCard {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  max-width: 16.25rem;
-  min-width: 9.25rem;
+.container {
+  max-width: 75rem;
   width: 100%;
-  align-items: center;
+  padding: 3.75rem 1.25rem;
+  margin: auto;
 }
-.benefitCard > div {
-  border: 1px solid var(--white);
-  border-radius: 4px;
-  min-height: 18rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: stretch ;
-  gap: .5rem;
-  padding: .5rem;
+
+.intro {
+  margin-bottom: 3.75rem;
 }
-.benefitCard > div > p {
-  text-align: center;
-  line-height: 1.5;
-  color: var(--blue-200);
-}
-.benefitCard strong {
-  font-size: 1.25rem;
+
+.intro > h1 {
+  margin-bottom: 2rem;
+
+  color: var(--white);
+  font-weight: 800;
+  font-size: 4rem;
   line-height: 1.1;
-  font-weight: 500;
+  text-align: center;
+}
+
+.intro > p {
+  color: var(--gray-5);
+  font-size: 1.5rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.options {
+  width: fit-content;
+  padding: 0.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+
+  background-color: var(--gray-12);
+}
+
+.options > button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 999px;
+
+  background-color: transparent;
+  font-family: 'Metropolis', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--white);
+}
+
+.content > article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.description > ul > li {
+  max-width: 28.75rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+
+  color: var(--gray-1);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+.description > ul > li > span {
+  flex-shrink: 0;
+  display: block;
+  width: 12px;
+  height: 6px;
+}
+
+@media(max-width: 660px) {
+  .intro {
+    margin-bottom: 2rem;
+  }
+
+  .intro > h1 {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
+
+  .options {
+    margin-bottom: 1.25rem;
+  }
+
+  .content > article {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .image {
+    grid-row: 1 / 2;
+  }
 }

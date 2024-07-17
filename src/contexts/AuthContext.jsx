@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from 'react-query'
 
 import { api } from '../lib/api'
 
@@ -9,6 +10,7 @@ export function AuthContextProvider({ children }) {
   const [token, setToken] = useState(null)
   const [authIsLoading, setAuthIsLoading] = useState(false)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   // Recuperando token do localstorage caso exista
   useEffect(() => {
@@ -42,6 +44,7 @@ export function AuthContextProvider({ children }) {
     setToken(null)
     api.defaults.headers.common.Authorization = null
     navigate('/')
+    queryClient.invalidateQueries()
   }
 
   return (

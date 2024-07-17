@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 
-import { api } from '@lib/api'
+import { getTransactions } from '@api/get-transactions'
 
 import { MonthlyHistogram } from '@components/MonthlyHistogram'
 import { PieGraph } from '@components/PieGraph'
@@ -8,26 +8,18 @@ import { Loading } from '@components/Loading'
 import styles from './styles.module.css'
 
 export function Report() {
-  const [dadosTransacao, setDadosTransacao] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const { data, isLoading } = useQuery({
+    queryKey: ['transactions'],
+    queryFn: getTransactions,
+    onError: (error) => {
+      alert('Um erro ocorreu')
+      console.log(error)
+    },
+    initialData: [],
+  })
 
-  useEffect(() => {
-    async function buscarDadosTransacao() {
-      try {
-        setIsLoading(true)
-        const { data } = await api.get('/transacoes')
-        setDadosTransacao(data)
-        setIsLoading(false)
-      } catch (error) {
-        alert('Um erro ocorreu')
-        console.log(error)
-      }
-    }
-    buscarDadosTransacao()
-  }, [])
-
-  const transacoesEntrada = dadosTransacao
-    .filter((transacao) => transacao.role === 'entrada')
+  const incomeTransactions = data
+    .filter((transaction) => transaction.role === 'entrada')
     .map((item) => {
       return {
         date: new Date(item.transacao.dataTransacao)
@@ -37,7 +29,7 @@ export function Report() {
       }
     })
 
-  const entradasTotal = transacoesEntrada.reduce(
+  const incomeTotal = incomeTransactions.reduce(
     (acc, item) => ({ ...acc, y: (acc.y += item.value) }),
     {
       x: 'Entradas',
@@ -45,8 +37,8 @@ export function Report() {
     },
   )
 
-  const transacoesSaida = dadosTransacao
-    .filter((transacao) => transacao.role === 'saida')
+  const outcomeTransactions = data
+    .filter((transaction) => transaction.role === 'saida')
     .map((item) => {
       return {
         date: new Date(item.transacao.dataTransacao)
@@ -56,7 +48,7 @@ export function Report() {
       }
     })
 
-  const saidasTotal = transacoesSaida.reduce(
+  const outcomeTotal = outcomeTransactions.reduce(
     (acc, item) => ({ ...acc, y: (acc.y += item.value) }),
     {
       x: 'Saídas',
@@ -64,29 +56,37 @@ export function Report() {
     },
   )
 
-  function formatarValor(number) {
+  function formatNumberToCurrency(number) {
     return number.toLocaleString('default', {
       style: 'currency',
       currency: 'BRL',
     })
   }
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  if (isLoading) {
+    return <Loading />
+  }
+
+  return (
     <section>
-      <div className={styles.graficos}>
-        <div className={styles.graficoItem}>
-          <strong>Entradas - Total: {formatarValor(entradasTotal.y)}</strong>
-          <MonthlyHistogram data={transacoesEntrada} />
+      <div className={styles.graphs}>
+        <div className={styles.graphItem}>
+          <strong>
+            Entradas - Total: {formatNumberToCurrency(incomeTotal.y)}
+          </strong>
+          <MonthlyHistogram data={incomeTransactions} />
         </div>
-        <div className={styles.graficoItem}>
-          <strong>Saídas - Total: {formatarValor(saidasTotal.y)}</strong>
-          <MonthlyHistogram data={transacoesSaida} color="red" />
+
+        <div className={styles.graphItem}>
+          <strong>
+            Saídas - Total: {formatNumberToCurrency(outcomeTotal.y)}
+          </strong>
+          <MonthlyHistogram data={outcomeTransactions} color="red" />
         </div>
-        <div className={styles.graficoItem}>
+
+        <div className={styles.graphItem}>
           <strong>Comparativo</strong>
-          <PieGraph data={[entradasTotal, saidasTotal]} />
+          <PieGraph data={[incomeTotal, outcomeTotal]} />
         </div>
       </div>
     </section>

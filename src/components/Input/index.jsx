@@ -1,16 +1,22 @@
+/* eslint-disable react/display-name */
+import { forwardRef } from 'react'
 import InputMask from 'react-input-mask'
 
 import styles from './styles.module.css'
 
-export function Input({ label, icon, errors, ...rest }) {
+export const Input = forwardRef(({ label, icon, errors, ...rest }, ref) => {
   return (
     <label className={styles.container}>
       {label}
       <div>
-        <InputMask {...rest} style={errors && { borderBottomColor: 'red' }} />
+        <InputMask
+          {...rest}
+          inputRef={ref}
+          style={errors && { borderColor: 'red' }}
+        />
         {icon && icon}
       </div>
       {errors && <p className={styles.errorMessage}>{errors}</p>}
     </label>
   )
-}
+})

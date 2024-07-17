@@ -20,7 +20,7 @@ export function MonthlyHistogram({ data, color = 'green' }) {
 
   // Process the data to group values by month
   const groupedData = data.reduce((acc, entry) => {
-    const [year, month, day] = entry.date.split('-')
+    const [year, month] = entry.date.split('-')
     const monthYear = `${month}-${year}`
     acc[monthYear] = acc[monthYear] || 0
     acc[monthYear] += entry.value
@@ -32,8 +32,6 @@ export function MonthlyHistogram({ data, color = 'green' }) {
     monthYear,
     value: groupedData[monthYear],
   }))
-
-  console.log(chartData)
 
   return (
     <div className={styles.graphContainer}>

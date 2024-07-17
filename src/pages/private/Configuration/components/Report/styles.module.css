@@ -1,8 +1,8 @@
-.graficos {
+.graphs {
   margin-bottom: 2.5rem;
 }
 
-.graficos > button, .history > button {
+.graphs > button, .history > button {
   width: 100%;
   display: flex;
   align-items: center;
@@ -16,14 +16,15 @@
   padding: 1.25rem 0;
 }
 
-.graficoItem{
+.graphItem{
   margin-top: 1.25rem;
 }
 
-.graficoItem strong {
+.graphItem strong {
   font-size: 1.25rem;
   line-height: 1.5;
-  color: var(--white);
+  color: var(--gray-2);
   display: block;
   margin-bottom: 0.5rem;
+  font-family: 'Metropolis', sans-serif;
 }

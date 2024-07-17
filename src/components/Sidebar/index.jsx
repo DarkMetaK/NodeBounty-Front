@@ -3,7 +3,6 @@ import {
   UserCircle,
   Gear,
   Money,
-  Question,
   CreditCard,
   ChartLineUp,
   SignOut,
@@ -37,10 +36,6 @@ export function Sidebar() {
         <NavLink to="/transacoes">
           <Money size={32} />
           Transações
-        </NavLink>
-        <NavLink to="/ajuda">
-          <Question size={32} />
-          Ajuda
         </NavLink>
         <NavLink to="/cartoes">
           <CreditCard size={32} />
@@ -81,12 +76,6 @@ export function Sidebar() {
                 <NavLink to="/transacoes">
                   <Money size={32} />
                   Transações
-                </NavLink>
-              </DropdownMenu.Item>
-              <DropdownMenu.Item>
-                <NavLink to="/ajuda">
-                  <Question size={32} />
-                  Ajuda
                 </NavLink>
               </DropdownMenu.Item>
               <DropdownMenu.Item>

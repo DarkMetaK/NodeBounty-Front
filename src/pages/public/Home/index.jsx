@@ -1,92 +1,138 @@
 import { useNavigate } from 'react-router-dom'
+import {
+  ArrowRight,
+  CalendarX,
+  Coins,
+  CreditCard,
+  DeviceMobile,
+  Gift,
+  Handshake,
+  Wallet,
+} from 'phosphor-react'
 
-import Grafo from '@assets/grafo.png'
-import LogoDecorator from '@assets/logo-decorator.png'
-import ExchangeIcon from '@assets/currency-exchange.svg'
-import MoneyIcon from '@assets/money.svg'
-import MoneyBagIcon from '@assets/money-bag.svg'
-import CardImage from '@assets/card.png'
-import FATLogo from '@assets/fundacaoFAT.png'
-import BancoBrasilLogo from '@assets/bancoBrasil.png'
-import FATECLogo from '@assets/fatec.png'
+import { useWindowSize } from '@hooks/useWindowSize'
+import heroImage from '@assets/heroImage.png'
+import heroImageHorizontal from '@assets/heroImageHorizontal.png'
+import cardImage from '@assets/homeCardImage.png'
 
-import { Button } from '@components/Button'
 import styles from './styles.module.css'
+import { Button } from '@components/Button'
 
 export function PublicHome() {
+  const [windowWidth] = useWindowSize()
   const navigate = useNavigate()
 
   return (
-    <main className={styles.container}>
-      <div className={styles.intro}>
-        <div>
-          <h1>A vantagem do futuro começa aqui.</h1>
-          <img src={LogoDecorator} alt="Logo Node Bounty" />
-        </div>
-        <img src={Grafo} alt="Grafo de vantagens Node Bounty" />
-      </div>
+    <>
+      <main className={styles.intro}>
+        <div className={styles.container}>
+          <div>
+            <h1>
+              O inicio da sua <span>liberdade financeira</span> começa aqui
+            </h1>
 
-      <div className={styles.benefits}>
-        <h2>Conheça nossos serviços</h2>
-        <div className={styles.benefitsList}>
-          <div className={styles.benefitCard}>
-            <div>
-              <img src={ExchangeIcon} alt="Icone de conversão de moedas" />
-              <p>A troca origina um ciclo infindável de possibilidades.</p>
-            </div>
-            <strong>Conta-corrente</strong>
+            <p>
+              Conquiste seus objetivos financeiros com simplicidade e inovação.
+              Junte-se a nós rumo a um futuro financeiro descomplicado
+            </p>
+
+            <Button
+              title="Abrir conta"
+              icon={<ArrowRight size={24} weight="bold" />}
+              size="lg"
+              onClick={() => navigate('/cadastro')}
+            />
           </div>
-          <div className={styles.benefitCard}>
-            <div>
-              <img src={MoneyIcon} alt="Icone de moedas" />
-              <p>Quanto mais você usa sua conta, mais você ganha.</p>
-            </div>
-            <strong>Programa de cashback</strong>
+
+          <div className={styles.image}>
+            <img
+              src={windowWidth > 960 ? heroImage : heroImageHorizontal}
+              alt="Imagem preto e branco de uma mulher sorrindo enquanto mexe ao celular"
+            />
           </div>
-          <div className={styles.benefitCard}>
-            <div>
-              <img
-                src={MoneyBagIcon}
-                alt="Icone de conversão de uma sacola de dinheiro"
-              />
+        </div>
+      </main>
+
+      <section className={styles.services}>
+        <div className={styles.container}>
+          <h2>Nossos Serviços</h2>
+
+          <ul>
+            <li className={styles.serviceCard}>
+              <DeviceMobile size={48} color="currentColor" />
+              <h3>Conta Corrente</h3>
               <p>
-                Na node bounty valorizamos a confiança que nos é depositada.
+                Sem mensalidade e completa, adaptada para você e seu estilo de
+                vida.
               </p>
+            </li>
+
+            <li className={styles.serviceCard}>
+              <Gift size={48} color="currentColor" />
+              <h3>Benefícios Exclusivos</h3>
+              <p>
+                Receba diversos benefícios exclusivos de lojas parceiras, de
+                acordo com o plano escolhido
+              </p>
+            </li>
+
+            <li className={styles.serviceCard}>
+              <Coins size={48} color="currentColor" />
+              <h3>Investimentos</h3>
+              <p>
+                Simule investimentos em CDB e descubra qual o melhor
+                investimento para você.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className={styles.card}>
+        <div className={styles.container}>
+          <h2>Bounty Card</h2>
+
+          <div className={styles.cardContainer}>
+            <div>
+              <ul>
+                <li className={styles.cardItem}>
+                  <CalendarX size={48} color="currentColor" />
+                  <h3>Zero Anuidade</h3>
+                </li>
+
+                <li className={styles.cardItem}>
+                  <Handshake size={48} color="currentColor" />
+                  <h3>Descontos em Parceiros</h3>
+                </li>
+
+                <li className={styles.cardItem}>
+                  <Wallet size={48} color="currentColor" />
+                  <h3>Limite Flexível</h3>
+                </li>
+
+                <li className={styles.cardItem}>
+                  <CreditCard size={48} color="currentColor" />
+                  <h3>Parcelamentos em até 24x</h3>
+                </li>
+              </ul>
+
+              <Button
+                title="Pedir Cartão"
+                icon={<ArrowRight size={24} weight="bold" />}
+                size="lg"
+                onClick={() => navigate('/cadastro')}
+              />
             </div>
-            <strong>Simulador de CDI</strong>
-          </div>
-        </div>
-      </div>
 
-      <div className={styles.card}>
-        <div>
-          <h2>Conta corrente, cartão e investimentos</h2>
-          <p>Para acompanhar e apoiar sua ascensão onde estiver.</p>
-          <Button
-            titulo="Abra sua conta"
-            tipo="secundario"
-            onClick={() => navigate('/cadastro')}
-          />
-        </div>
-        <div className={styles.cardImage}>
-          <img src={CardImage} alt="Cartão fícticio Node Bounty" />
-        </div>
-      </div>
-
-      <div className={styles.sponsor}>
-        <h2>Apoio</h2>
-        <div>
-          <div>
-            <img src={FATLogo} alt="Logo fundação FAT" />
-          </div>
-          <div>
-            <img src={BancoBrasilLogo} alt="Logo Banco do Brasil" />
-          </div>
-          <div>
-            <img src={FATECLogo} alt="Logo da FATEC Zona Leste" />
+            <div className={styles.image}>
+              <img
+                src={cardImage}
+                alt="Frente em verso do cartão Node Bounty preto"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </section>
+    </>
   )
 }

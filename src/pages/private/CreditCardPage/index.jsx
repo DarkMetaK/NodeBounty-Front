@@ -1,146 +1,120 @@
-import React, { useState, useEffect } from 'react'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+
+import { getCreditCards } from '@api/get-credit-cards'
+import { createCreditCard } from '@api/create-credit-card'
+import { deleteCreditCard } from '@api/delete-credit-card'
+import { useToast } from '@hooks/useToast'
+import { AppError } from '@utils/AppError'
+
+import styles from './styles.module.css'
 import { Button } from '@components/Button'
 import { CreditCard } from '@components/CreditCard'
-import { ConfirmDialog } from '@components/Dialog'
+import { ConfirmDialog } from '@components/ConfirmDialog'
 import { Loading } from '@components/Loading'
-import styles from './styles.module.css'
-import { api } from '@lib/api.js'
-import { useToast } from '@hooks/useToast'
-
-
-
 
 export function CreditCardPage() {
-  const [cartoes, setCartoes] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [erro, setErro] = useState(null)
-  const [cardToDelete, setCardToDelete] = useState(null)
-  const [avisoGeracao, setAvisoGeracao] = useState(false);
   const { showToast, ToastComponents } = useToast()
-  const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const queryClient = useQueryClient()
 
-   function openConfirmDialog() {
-    setConfirmDialogOpen(true);
-  }
+  const { data: cards, isLoading } = useQuery({
+    queryKey: ['cards'],
+    queryFn: getCreditCards,
+    onError: (error) => {
+      const isAppError = error instanceof AppError
+      const title = isAppError ? error.message : 'Erro no servidor.'
+      const description = 'Falha ao carregar os dados.'
 
-  function closeConfirmDialog() {
-    setConfirmDialogOpen(false);
-  }
+      showToast(title, description, true)
+      console.log(error)
+    },
+    staleTime: Infinity,
+  })
 
-  useEffect(() => {
-    const consulta = async () => {
-      setIsLoading(true)
-      try {
-        const { data } = await api.get('/cartoes')
-        setCartoes(data)
-      } catch (error) {
-        alert('Um erro ocorreu, por favor tente novamente')
-        setErro(error.message)
+  const { mutateAsync: handleCreateCard, isLoading: isSubmitting } =
+    useMutation({
+      mutationFn: createCreditCard,
+      onSuccess: () => {
+        queryClient.invalidateQueries('cards')
+
+        const title = 'Sucesso'
+        const description = 'Novo cartão de crédito gerado com sucesso.'
+        showToast(title, description)
+      },
+      onError: (error) => {
+        const isAppError = error instanceof AppError
+        const title = isAppError ? error.message : 'Erro no servidor.'
+        const description = isAppError
+          ? 'Não foi possível prosseguir com a geração do cartão.'
+          : 'Tente novamente mais tarde.'
+
+        showToast(title, description, true)
         console.log(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    consulta()
-  }, [])
-  
-  // console.log(cartoes[0].conta.plano.idPlano)
-  async function GerarCartao() {
-    console.log('Tentando gerar cartão...')
-  
-    try {
-      const { data } = await api.post('/cartoes')
-      setCartoes((cartoes) => [...cartoes, data]);
-      setAvisoGeracao(true); // Mostra o aviso de geração bem-sucedida
-    } catch (error) {
-      alert('Um erro ocorreu, por favor tente novamente');
-      setErro(error.message);
-      console.log(error);
-    }
-      showToast("Cartão", "Novo cartão gerado!", false)
+      },
+    })
+
+  const { mutateAsync: handleDeleteCard, isLoading: isDeleting } = useMutation({
+    mutationFn: deleteCreditCard,
+    onSuccess: () => {
+      queryClient.invalidateQueries('cards')
+
+      const title = 'Sucesso'
+      const description = 'O cartão foi deletado com sucesso.'
+      showToast(title, description)
+    },
+    onError: (error) => {
+      const isAppError = error instanceof AppError
+      const title = isAppError ? error.message : 'Erro no servidor.'
+      const description = isAppError
+        ? 'Não foi possível prosseguir com a remoção do cartão.'
+        : 'Tente novamente mais tarde.'
+
+      showToast(title, description, true)
+      console.log(error)
+    },
+  })
+
+  if (isLoading) {
+    return <Loading />
   }
-  
 
-  async function deletarCartao(idCartaoDeletar) {
-    // Set the card ID to be deleted in the state
-    setCardToDelete(idCartaoDeletar)
-  }
+  return (
+    <main className={styles.container}>
+      <header className={styles.header}>
+        <h1>Seus cartões</h1>
+        <Button
+          title="Gerar Cartão"
+          onClick={handleCreateCard}
+          disabled={isSubmitting}
+        />
+      </header>
 
-  // Use a confirmation dialog before deleting
-  useEffect(() => {
-    if (cardToDelete !== null) {
-        async function deleteConfirmedCard() {
-          try {
-            const { data } = await api.delete(`/cartoes/${cardToDelete}`)
-            setCartoes((cartoes) =>
-              cartoes.filter((cartao) => cartao.idCartao !== cardToDelete),
-            )
-          } catch (error) {
-            alert('Um erro ocorreu, por favor tente novamente')
-            setErro(error.message)
-            console.log(error)
-          }
-        }
-        deleteConfirmedCard()
-      
-      // Reset the cardToDelete state
-      setCardToDelete(null)
-      showToast("Cartão", "Cartão foi excluido com sucesso!", false)
-    }
-  }, [cardToDelete])
-
-  console.log(cartoes)
-
-  return isLoading ? (
-    <Loading />
-  ) : (
-    <div className="container">
-      <div>
-        {cartoes.map((cartao) => (
-          <div key={cartao.idCartao}>
+      <ul className={styles.list}>
+        {cards.map((cartao) => (
+          <li key={cartao.idCartao}>
             <CreditCard
-              numeroCartao={cartao.numeroCartao}
-              validadeCartao={cartao.validadeCartao}
-              cvcCartao={cartao.cvcCartao}
-              color={cartao.conta.plano.idPlano === 'Beauty' ? 'bgBeauty' : cartao.conta.plano.idPlano === 'Tech' ? 'bgTech' : 'bgHealth' }
+              number={cartao.numeroCartao}
+              expiresDate={cartao.validadeCartao}
+              cvc={cartao.cvcCartao}
             />
-            <div className="row justify-content-center mt-1">
-              <div className="col-2 text-left">
-                <Button
-                  id={cartao.idCartao}
-                  titulo="Deletar Cartão"
-                  onClick={openConfirmDialog} 
-                />
-              </div>
-            </div>
-            <ConfirmDialog
-        isOpen={isConfirmDialogOpen}
-        onCancel={closeConfirmDialog}
-        onConfirm={() => {
-          closeConfirmDialog();
-          deletarCartao(cartao.idCartao);
-        }}
-      />
-          </div>
-        ))}
-      </div>
-      {ToastComponents}
-      {erro && <p>Erro na consulta: {erro}</p>}
 
-      <div className="row justify-content-center mt-1">
-        <div className={'col-md-auto' + styles.cartao}>
-          <div className={styles.cartao}>
-            <Button
-              titulo="Gerar Cartão"
-              onClick={GerarCartao}
-              tipo="secundario"
+            <ConfirmDialog
+              trigger={
+                <Button
+                  title="Deletar"
+                  variant="secondary"
+                  disabled={isDeleting}
+                />
+              }
+              title="Deseja continuar?"
+              description="Essa ação é irreversível, uma vez deletado, não será mais possível utilizar este cartão."
+              onConfirm={() => handleDeleteCard(cartao.idCartao)}
+              isLoading={isDeleting}
             />
-          </div>
-        </div>
-        <div className="elementos-container"></div>
-        
-      </div>
-    </div>
-    
+          </li>
+        ))}
+      </ul>
+
+      {ToastComponents}
+    </main>
   )
 }

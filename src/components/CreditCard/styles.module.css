@@ -1,53 +1,77 @@
-.cardContainer {
-  margin: auto;
-  padding: 1.125rem;
-  color: var(--white);
-  border-radius: 23px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
-  width: 21rem;
-}
-
-.cardNumber {
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-bottom: 2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.container {
   width: 100%;
-}
-.cardNumber a {
-  display: block;
-  width: 2rem;
-  height: 2rem;
-}
-.cardNumber p {
+  aspect-ratio: 3/2;
+  border-radius: 8px;
+  position: relative;
   display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
-.expirationCvv {
+.Health {
+  background: url('../../assets/cardBgStripes.png') center/50%, #19972D;
+}
+
+.Tech {
+  background: url('../../assets/cardBgStripes.png') center/50%, #1A3296;
+}
+
+.Beauty {
+  background: url('../../assets/cardBgStripes.png') center/50%, #6F48C9;
+}
+
+.logo, .chip {
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  left: 1rem;
+  top: 1rem;
+}
+
+.chip {
+  left: auto;
+  right: 1rem;
+  top: 1rem;
+}
+
+.content {
+  padding: 1rem;
+  z-index: 100;
+}
+
+.content p {
+  font-size: 1.5rem;
+  font-family: 'Metropolis', sans-serif;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.number {
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.number > button {
+  border: none;
+  background-color: transparent;
+}
+
+.security {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   justify-content: space-between;
 }
 
-
-.expirationCvv div {
-  font-size: 1.5rem;
+@media (max-width: 800px) {
+  .container {
+    max-width: 26.25rem;
+  }
 }
 
-.cartao{
-  width: 150%;
-  height: 150%;
+@media(max-width: 600px) {
+  .content p {
+    font-size: 1.125rem;
+  }
 }
-
-.eye{
-  max-width: 35px; /* Defina o tamanho máximo que você deseja */
-  height: auto; /* Mantém a proporção original da imagem */
-  filter: invert(100%);
-}
-.cardContent {
-  display: flex;
-  align-items: center;
-}
-

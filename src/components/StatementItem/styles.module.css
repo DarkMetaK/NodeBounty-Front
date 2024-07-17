@@ -1,0 +1,82 @@
+.transacao {
+  position: relative;
+  border-bottom: 1px solid #ddd;
+  background-color: var(--gray-11);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.transacao:last-child {
+  margin-top: 0.8rem;
+  border-bottom: none;
+}
+
+.data {
+  font-weight: bold;
+  display: flex;
+}
+
+.descricao {
+  margin-top: 0.25rem;
+  display: flex;
+}
+
+.valorGreen {
+  margin-top: 0.25rem;
+  font-weight: bold;
+  color: var(--green-3);
+  width: 100%;
+}
+
+.valorRed {
+  margin-top: 5px;
+  font-weight: bold;
+  color: var(--red);
+  width: 100%;
+}
+.valor {
+  margin-top: 5px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.box{
+  display: flex;
+}
+
+.saldo {
+  color: var(--green-3);
+  font-weight: bold;
+  margin-top: 1.25rem;
+  margin-right: 0px;
+}
+
+.pdfButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  background-color: transparent;
+  border: none;
+}
+
+.svg{
+  width: 30px;
+  height: 30px;
+  filter: invert(1);
+}
+
+.pdf_svg{
+  width: 40px;
+  height: 40px;
+  filter: invert(1);
+}
+
+img.pdf_svg:hover {
+  width: 40px;
+  height: 40px;
+  filter: var(--blue-300);
+  cursor: pointer;
+  visibility: visible;
+  opacity: 1;
+}
