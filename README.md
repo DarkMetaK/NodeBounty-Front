@@ -5,10 +5,8 @@
 <div align="center">
 
   <a href="https://github.com/DarkMetaK/nodebounty-frontend">
-    <img src="/src/assets/logo-branca.svg" alt="Logo" width="160" height="80">
+    <img src="/src/assets/logo.svg" alt="Logo" width="211" height="22">
   </a>
-
-  <h3 align="center">Node Bounty</h3>
 
   <p align="center">
     Desenvolvimento de uma fintech fictícia de um banco digital, com Spring e React
@@ -44,20 +42,29 @@
     <img src="./public/preview.png" alt="Product Name Screen Shot" width=100%>
 </a>
 
-O projeto tem a proposta de simular uma fintech de um banco digital, sendo desenvolvido com Springboot e ReactJS. Na aplicação, é possível abrir sua conta escolhendo entre três diferentes tipos de planos, realizar saques, depósitos e transferências para outras contas existentes, receber cashback ao transferir para contas de lojas parceiras do seu plano e realizar simulações de investimentos em CDB, além de conseguir acompanhar com gráficos as movimentações do saldo. O back-end desenvolvido em Springboot pode ser encontrado no repositório: https://github.com/DarkMetaK/nodebounty-backend
+Este projeto simula uma fintech de um banco digital, desenvolvido com Spring Boot e ReactJS. A aplicação oferece uma variedade de funcionalidades para proporcionar uma experiência completa aos seus usuários. 
+
+#### Funcionalidades Principais:
+
+- **Abertura de Conta:** Escolha entre três diferentes tipos de planos ao abrir sua conta.
+- **Operações Bancárias:** Realize saques, depósitos e transferências para outras contas.
+- **Cashback:** Receba cashback ao transferir para contas de lojas parceiras do seu plano.
+- **Investimentos:** Realize simulações de investimentos em CDB.
+- **Acompanhamento de Saldo:** Utilize gráficos para acompanhar as movimentações do saldo da sua conta.
+
+Para visualizar uma demonstração das funcionalidades e do uso da aplicação, acesse o [deploy](https://node-bounty.netlify.app/).
 
 ### Tecnologias
+- **Front-end:**
+<br>[![React][React.js]][React-url]<br>
 
-[![React][React.js]][React-url]<br>
-[![Springboot][Springboot]][Springboot-url]<br>
+- **Back-end:** - [Código fonte disponível aqui](https://github.com/DarkMetaK/nodebounty-backend)
+<br>[![Springboot][Springboot]][Springboot-url]<br>
 
 <p align="right">(<a href="#readme-top">Retornar ao topo</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Como rodar o projeto
-
-É possível acessar o deploy do site pelo link: https://darkmetak-music.vercel.app/
-
 1 - Clone o repositório do back-end e coloque para executar com Springboot
 ```sh
 git clone https://github.com/DarkMetaK/nodebounty-backend.git
@@ -99,7 +106,7 @@ Matheus Porto - [LinkedIn](https://www.linkedin.com/in/matheusport0/) - matporto
 <p align="right">(<a href="#readme-top">Retornar ao topo</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React.js]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
 [React-url]: https://reactjs.org/
-[Springboot]: https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white
+[Springboot]: https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white
 [Springboot-url]: https://spring.io/
